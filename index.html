@@ -7,13 +7,13 @@
 <meta name="description" content="Xintimani Group - Digital Solutions, Vukona Press, Academy of Excellence, Environmental Services, Construction Division. Johannesburg, Gauteng. WhatsApp 078 023 3263">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
-html,body{overflow-x:hidden;width:100%}
+html{overflow-x:clip;width:100%}
 :root{--navy:#0A1A3A;--gold:#C9A227;--gold2:#E8C84A;--light:#F8F6EF;--white:#fff}
-body{background:var(--white);color:var(--navy);line-height:1.6}
+body{background:var(--white);color:var(--navy);line-height:1.6;overflow-x:clip;padding-top:132px}
 a{text-decoration:none;color:inherit;word-break:break-word}
-.topbar{background:var(--navy);color:#fff;padding:8px 10px;text-align:center;font-size:12px;line-height:1.5}
+.topbar{background:var(--navy);color:#fff;padding:8px 10px;text-align:center;font-size:12px;line-height:1.5;position:fixed;top:0;left:0;right:0;z-index:101;height:30px}
 .topbar b{color:var(--gold2)}
-header{background:#fff;padding:10px 14px;border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:50}
+header{background:#fff;padding:10px 14px;border-bottom:3px solid var(--gold);position:fixed;top:30px;left:0;right:0;z-index:100}
 .nav{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .logo{display:flex;align-items:center}
 .logo img{width:150px;height:auto;display:block}
@@ -33,7 +33,7 @@ header{background:#fff;padding:10px 14px;border-bottom:3px solid var(--gold);pos
 .trust div{flex:1;min-width:140px}
 .trust b{font-size:22px;color:var(--navy)}
 .trust span{display:block;font-size:13px;color:#555}
-section{max-width:1100px;margin:auto;padding:48px 16px;width:100%}
+section{max-width:1100px;margin:auto;padding:48px 16px;width:100%;scroll-margin-top:150px}
 .section-tag{color:var(--gold);font-weight:800;letter-spacing:2px;font-size:13px;text-transform:uppercase}
 h3{font-size:32px;line-height:1.1;margin:8px 0 10px}
 .sub{color:#555;font-size:17px;max-width:750px}
@@ -82,12 +82,15 @@ footer{background:var(--navy);color:#fff;padding:36px 16px 18px;overflow:hidden}
 .foot li{margin-bottom:6px}
 .foot-bottom{max-width:1100px;margin:22px auto 0;border-top:1px solid rgba(255,255,255,.2);padding-top:14px;text-align:center;font-size:13px;opacity:.8}
 @media(max-width:800px){
+body{padding-top:168px}
+.topbar{height:30px;font-size:11px}
+header{top:30px;padding:8px 10px}
+section{scroll-margin-top:185px}
 .hero h2{font-size:32px}.grid{grid-template-columns:1fr}.proof{grid-template-columns:1fr}.academy{grid-template-columns:1fr}.split{grid-template-columns:1fr}.foot{grid-template-columns:1fr}
 .nav{flex-direction:column;gap:8px;text-align:center}
 .logo img{width:150px}
 .nav-links{font-size:13px;gap:10px}
 .btn-wa{font-size:13px;padding:9px 14px;white-space:normal;text-align:center}
-header{padding:8px 10px}
 section{padding:32px 12px}
 .about{grid-template-columns:1fr;padding:20px 14px}
 .vm{grid-template-columns:1fr}
