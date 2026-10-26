@@ -8,27 +8,27 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
 :root{--navy:#0A1A3A;--gold:#C9A227;--gold2:#E8C84A;--green:#0E7A5A;--light:#F8F6EF;--white:#fff}
-body{background:var(--white);color:var(--navy);line-height:1.6}
+body{background:var(--white);color:var(--navy);line-height:1.6;padding-bottom:70px}
 a{text-decoration:none;color:inherit}
-.topbar{background:var(--navy);color:#fff;padding:8px 16px;text-align:center;font-size:13px}
+.topbar{background:var(--navy);color:#fff;padding:8px 10px;text-align:center;font-size:12px;line-height:1.5}
 .topbar b{color:var(--gold2)}
-header{background:#fff;padding:12px 16px;border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:10}
-.nav{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+header{background:#fff;padding:10px 14px;border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:50}
+.nav{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .logo{display:flex;align-items:center}
-.logo img{width:190px;height:auto;display:block}
-.nav-links{display:flex;gap:14px;flex-wrap:wrap;font-weight:700;font-size:14px}
+.logo img{width:150px;height:auto;display:block}
+.nav-links{display:flex;gap:12px;flex-wrap:wrap;font-weight:700;font-size:14px;justify-content:center}
 .nav-links a:hover{color:var(--gold)}
 .btn{background:var(--gold);color:var(--navy);padding:10px 18px;border-radius:30px;font-weight:800;display:inline-block;border:2px solid var(--gold)}
 .btn-navy{background:var(--navy);color:#fff;padding:10px 18px;border-radius:30px;font-weight:800;display:inline-block}
-.btn-wa{background:#25D366;color:#fff;padding:10px 18px;border-radius:30px;font-weight:800;display:inline-block;border:2px solid #25D366}
-.hero{background:var(--navy);color:#fff;padding:50px 16px;text-align:center}
+.btn-wa{background:#25D366;color:#fff;padding:9px 16px;border-radius:30px;font-weight:800;display:inline-block;border:2px solid #25D366;font-size:14px;white-space:nowrap}
+.hero{background:var(--navy);color:#fff;padding:44px 16px;text-align:center}
 .hero-inner{max-width:900px;margin:auto}
 .hero .pill{background:rgba(255,255,255,.12);border:1px solid var(--gold);display:inline-block;padding:6px 14px;border-radius:20px;font-size:13px;color:var(--gold2);font-weight:700}
 .hero h2{font-size:44px;line-height:1.05;margin:16px 0 10px}
 .hero h2 span{color:var(--gold2)}
 .hero p{font-size:18px;opacity:.92;max-width:700px;margin:auto}
 .hero-btns{margin-top:22px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.trust{max-width:1100px;margin:-18px auto 0;background:#fff;border:2px solid var(--gold);border-radius:16px;padding:16px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.12);position:relative}
+.trust{max-width:1100px;margin:-18px auto 0;background:#fff;border:2px solid var(--gold);border-radius:16px;padding:16px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.12);position:relative;z-index:2}
 .trust div{flex:1;min-width:140px}
 .trust b{font-size:22px;color:var(--navy)}
 .trust span{display:block;font-size:13px;color:#555}
@@ -53,7 +53,7 @@ h3{font-size:32px;line-height:1.1;margin:8px 0 10px}
 .vm-box{background:#fff;border:2px solid var(--gold);border-radius:16px;padding:20px}
 .vm-box h4{font-size:20px;margin-bottom:8px}
 .vm-box p{color:#444;font-size:15px}
-.values{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.values{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
 .values span{background:var(--navy);color:#fff;padding:6px 12px;border-radius:20px;font-size:13px;font-weight:700}
 .proof{background:var(--navy);color:#fff;border-radius:20px;padding:28px;display:grid;grid-template-columns:1.2fr .8fr;gap:20px;align-items:center}
 .proof h3{color:#fff}
@@ -80,19 +80,30 @@ footer{background:var(--navy);color:#fff;padding:36px 16px 18px}
 .foot p,.foot li{font-size:14px;opacity:.92;list-style:none}
 .foot li{margin-bottom:6px}
 .foot-bottom{max-width:1100px;margin:22px auto 0;border-top:1px solid rgba(255,255,255,.2);padding-top:14px;text-align:center;font-size:13px;opacity:.8}
-.whatsapp{position:fixed;right:16px;bottom:16px;background:#25D366;color:#fff;padding:14px 18px;border-radius:50px;font-weight:800;box-shadow:0 8px 20px rgba(0,0,0,.3);z-index:99}
-@media(max-width:800px){.hero h2{font-size:34px}.grid{grid-template-columns:1fr}.proof{grid-template-columns:1fr}.academy{grid-template-columns:1fr}.split{grid-template-columns:1fr}.foot{grid-template-columns:1fr}.nav{justify-content:center;text-align:center}.logo img{width:170px}.about{grid-template-columns:1fr}.vm{grid-template-columns:1fr}}
+.whatsapp{position:fixed;right:12px;bottom:12px;background:#25D366;color:#fff;padding:11px 16px;border-radius:50px;font-weight:800;box-shadow:0 8px 20px rgba(0,0,0,.3);z-index:99;font-size:14px}
+@media(max-width:800px){
+.hero h2{font-size:32px}.grid{grid-template-columns:1fr}.proof{grid-template-columns:1fr}.academy{grid-template-columns:1fr}.split{grid-template-columns:1fr}.foot{grid-template-columns:1fr}
+.nav{flex-direction:column;gap:8px;text-align:center}
+.logo img{width:150px}
+.nav-links{font-size:13px;gap:10px}
+.btn-wa{font-size:13px;padding:9px 14px}
+header{padding:8px 10px}
+section{padding:32px 14px}
+.about{grid-template-columns:1fr}
+.vm{grid-template-columns:1fr}
+.whatsapp{font-size:13px;padding:10px 14px;bottom:10px;right:10px}
+}
 </style>
 </head>
 <body>
 
-<div class="topbar">📍 Johannesburg • Gauteng &nbsp;|&nbsp; 📞 <b>078 023 3263</b> &nbsp;|&nbsp; 💬 WhatsApp: <b>078 023 3263</b> &nbsp;|&nbsp; ✉️ <b>info@xintimanigroup.co.za</b></div>
+<div class="topbar">📍 Johannesburg • Gauteng &nbsp;|&nbsp; 💬 WhatsApp: <b>078 023 3263</b> &nbsp;|&nbsp; ✉️ <b>info@xintimanigroup.co.za</b></div>
 
 <header>
 <div class="nav">
 <div class="logo"><img src="logo.png" alt="Xintimani Group Logo - Gold Book and Gold Tree"></div>
 <div class="nav-links"><a href="#about">About</a><a href="#divisions">Divisions</a><a href="#digital">Digital</a><a href="#academy">Academy</a><a href="#services">Services</a><a href="#contact">Contact</a></div>
-<a class="btn-wa" href="https://wa.me/27780233263?text=Hi%20Xintimani%20Group%2C%20I%20want%20a%20quote" target="_blank">💬 WhatsApp 078 023 3263 →</a>
+<a class="btn-wa" href="https://wa.me/27780233263?text=Hi%20Xintimani%20Group%2C%20I%20want%20a%20quote" target="_blank">💬 WhatsApp 078 023 3263</a>
 </div>
 </header>
 
@@ -245,7 +256,7 @@ footer{background:var(--navy);color:#fff;padding:36px 16px 18px}
 <div class="foot-bottom">© 2026 Xintimani Group • Building Solutions. Empowering Communities. • WhatsApp 078 023 3263 • All Rights Reserved</div>
 </footer>
 
-<a class="whatsapp" href="https://wa.me/27780233263?text=Hi%20Xintimani%20Group" target="_blank">💬 WhatsApp 078 023 3263</a>
+<a class="whatsapp" href="https://wa.me/27780233263?text=Hi%20Xintimani%20Group" target="_blank">💬 078 023 3263</a>
 
 <script>
 function sendWA(e){e.preventDefault();
