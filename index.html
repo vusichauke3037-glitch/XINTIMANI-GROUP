@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Xintimani Group | Building Solutions. Empowering Communities.</title>
+<meta name="description" content="Xintimani Group - Digital Solutions, Vukona Press, Academy of Excellence, Environmental Services, Construction Division. Johannesburg, Gauteng.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+:root{--navy:#0A1A3A;--gold:#C9A227;--gold2:#E8C84A;--green:#0E7A5A;--light:#F8F6EF;--white:#fff}
+body{background:var(--white);color:var(--navy);line-height:1.6}
+a{text-decoration:none;color:inherit}
+.topbar{background:var(--navy);color:#fff;padding:8px 16px;text-align:center;font-size:13px}
+.topbar b{color:var(--gold2)}
+header{background:#fff;padding:18px 16px;border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:10}
+.nav{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-icon{font-size:42px;line-height:1}
+.logo h1{font-size:26px;letter-spacing:.5px;color:var(--navy);line-height:1}
+.logo p{font-size:13px;color:var(--green);font-weight:700}
+.nav-links{display:flex;gap:14px;flex-wrap:wrap;font-weight:700;font-size:14px}
+.nav-links a:hover{color:var(--gold)}
+.btn{background:var(--gold);color:var(--navy);padding:10px 18px;border-radius:30px;font-weight:800;display:inline-block;border:2px solid var(--gold)}
+.btn-navy{background:var(--navy);color:#fff;padding:10px 18px;border-radius:30px;font-weight:800;display:inline-block}
+.hero{background:var(--navy);color:#fff;padding:50px 16px;text-align:center}
+.hero-inner{max-width:900px;margin:auto}
+.hero .pill{background:rgba(255,255,255,.12);border:1px solid var(--gold);display:inline-block;padding:6px 14px;border-radius:20px;font-size:13px;color:var(--gold2);font-weight:700}
+.hero h2{font-size:44px;line-height:1.05;margin:16px 0 10px}
+.hero h2 span{color:var(--gold2)}
+.hero p{font-size:18px;opacity:.92;max-width:700px;margin:auto}
+.hero-btns{margin-top:22px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.trust{max-width:1100px;margin:-18px auto 0;background:#fff;border:2px solid var(--gold);border-radius:16px;padding:16px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.12);position:relative}
+.trust div{flex:1;min-width:140px}
+.trust b{font-size:22px;color:var(--navy)}
+.trust span{display:block;font-size:13px;color:#555}
+section{max-width:1100px;margin:auto;padding:48px 16px}
+.section-tag{color:var(--gold);font-weight:800;letter-spacing:2px;font-size:13px;text-transform:uppercase}
+h3{font-size:32px;line-height:1.1;margin:8px 0 10px}
+.sub{color:#555;font-size:17px;max-width:750px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
+.card{background:var(--light);border:1px solid #E8E0C5;border-radius:18px;padding:22px;position:relative}
+.card.top{border:2px solid var(--gold);background:#fff}
+.card .icon{font-size:38px}
+.card h4{font-size:20px;margin:10px 0 6px}
+.card p{color:#555;font-size:15px}
+.card ul{margin:12px 0 0 18px;color:#333;font-size:15px}
+.card .price{background:var(--navy);color:#fff;display:inline-block;padding:6px 12px;border-radius:20px;font-size:13px;font-weight:800;margin-top:14px}
+.card .price.gold{background:var(--gold);color:var(--navy)}
+.badge{position:absolute;top:14px;right:14px;background:var(--gold);color:var(--navy);font-size:11px;font-weight:800;padding:4px 10px;border-radius:20px}
+.proof{background:var(--navy);color:#fff;border-radius:20px;padding:28px;display:grid;grid-template-columns:1.2fr .8fr;gap:20px;align-items:center}
+.proof h3{color:#fff}
+.proof ul{list-style:none;margin-top:14px}
+.proof li{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:12px 14px;border-radius:12px;margin-bottom:10px}
+.proof li b{color:var(--gold2)}
+.proof-box{background:var(--gold);color:var(--navy);border-radius:16px;padding:20px;text-align:center}
+.proof-box h4{font-size:26px}
+.proof-box p{font-size:15px}
+.academy{background:#FFF8E0;border-radius:20px;padding:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.academy>div{background:#fff;border:1px solid var(--gold);border-radius:14px;padding:18px;text-align:center}
+.academy .big{font-size:32px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
+.mini{background:#fff;border:1px solid #ddd;border-radius:16px;padding:20px}
+.mini h4{font-size:19px;margin-bottom:8px}
+.mini ul{margin-left:18px;color:#444}
+.quote{background:var(--light);border-radius:20px;padding:28px;text-align:center}
+.quote h3{font-size:30px}
+form{max-width:600px;margin:20px auto 0;display:grid;gap:12px;text-align:left}
+input,select,textarea{width:100%;padding:14px;border:1px solid #ccc;border-radius:12px;font-size:16px}
+footer{background:var(--navy);color:#fff;padding:36px 16px 18px}
+.foot{max-width:1100px;margin:auto;display:grid;grid-template-columns:1.2fr .8fr .8fr;gap:20px}
+.foot h4{color:var(--gold2);margin-bottom:10px}
+.foot p,.foot li{font-size:14px;opacity:.92;list-style:none}
+.foot li{margin-bottom:6px}
+.foot-bottom{max-width:1100px;margin:22px auto 0;border-top:1px solid rgba(255,255,255,.2);padding-top:14px;text-align:center;font-size:13px;opacity:.8}
+.whatsapp{position:fixed;right:16px;bottom:16px;background:#25D366;color:#fff;padding:14px 18px;border-radius:50px;font-weight:800;box-shadow:0 8px 20px rgba(0,0,0,.3);z-index:99}
+@media(max-width:800px){.hero h2{font-size:34px}.grid{grid-template-columns:1fr}.proof{grid-template-columns:1fr}.academy{grid-template-columns:1fr}.split{grid-template-columns:1fr}.foot{grid-template-columns:1fr}.nav{justify-content:center;text-align:center}}
+</style>
+</head>
+<body>
+
+<div class="topbar">📍 Johannesburg • Gauteng &nbsp;|&nbsp; 📞 <b>078 023 3263</b> &nbsp;|&nbsp; ✉️ <b>info@xintimanigroup.co.za</b></div>
+
+<header>
+<div class="nav">
+<div class="logo"><div class="logo-icon">📖🌳</div><div><h1>XINTIMANI GROUP</h1><p>Building Solutions. Empowering Communities.</p></div></div>
+<div class="nav-links"><a href="#divisions">Divisions</a><a href="#digital">Digital</a><a href="#academy">Academy</a><a href="#services">Services</a><a href="#contact">Contact</a></div>
+<a class="btn" href="https://wa.me/27780233263?text=Hi%20Xintimani%20Group%2C%20I%20want%20a%20quote" target="_blank">WhatsApp Us →</a>
+</div>
+</header>
+
+<div class="hero">
+<div class="hero-inner">
+<span class="pill">⭐ 5 DIVISIONS • 1 GROUP • JOHANNESBURG</span>
+<h2>Building Solutions.<br><span>Empowering Communities.</span></h2>
+<p>We build websites, publish books, teach learners, clean & maintain spaces, and build homes — all under one trusted name.</p>
+<div class="hero-btns">
+<a class="btn" href="#digital">💻 Get A Website — R2,500</a>
+<a class="btn-navy" style="border:1px solid #fff" href="#contact">Get FREE Quote →</a>
+</div>
+</div>
+</div>
+
+<div class="trust">
+<div><b>💻 📖 🎓 🍃 🔨</b><span>5 Divisions</span></div>
+<div><b>R2,500 / R4,999</b><span>Paid Websites — Live Proof</span></div>
+<div><b>078 023 3263</b><span>Call / WhatsApp</span></div>
+<div><b>Johannesburg</b><span>Gauteng, South Africa</span></div>
+</div>
+
+<section id="divisions">
+<span class="section-tag">Our Divisions</span>
+<h3>One Group. Five Ways We Serve You.</h3>
+<p class="sub">Click a division to see what we do. Every division is Gold Standard — clean, professional, affordable.</p>
+<div class="grid">
+<div class="card top"><span class="badge">MOST POPULAR</span><div class="icon">💻</div><h4>Digital Solutions</h4><p>Websites & Systems that bring customers.</p><ul><li>Business Websites — R2,500 Once-Off</li><li>Booking Websites — R4,999 Once-Off</li><li>School Systems — Quote</li></ul><a class="price gold" href="#digital">View Digital →</a></div>
+<div class="card"><div class="icon">📖</div><h4>Vukona Press</h4><p>Stories That Empower. Vukona = Our Presence.</p><ul><li>Books</li><li>Stories</li><li>Youth Authors & Publishing</li></ul><a class="price" href="#vukona">View Vukona →</a></div>
+<div class="card"><div class="icon">🎓</div><h4>Academy of Excellence</h4><p>Learn • Grow • Lead</p><ul><li>School Library System — 1 Click</li><li>Mathemate-84 Learning</li><li>Academy Platform</li></ul><a class="price" href="#academy">View Academy →</a></div>
+<div class="card"><div class="icon">🍃</div><h4>Environmental Services</h4><p>Clean • Green • Reliable</p><ul><li>Cleaning & Disinfection</li><li>Bush Cutting</li><li>Landscaping</li></ul><a class="price" href="#services">FREE Quote →</a></div>
+<div class="card"><div class="icon">🔨</div><h4>Construction Division</h4><p>We Build It Right.</p><ul><li>Renovations</li><li>Building & Civil Works</li><li>Plumbing</li></ul><a class="price" href="#services">FREE Quote →</a></div>
+<div class="card" style="background:var(--navy);color:#fff"><div class="icon">⭐</div><h4 style="color:#fff">Why Choose Us?</h4><p style="color:#fff;opacity:.9">Real paid work. Real people. Real results. No empty promises.</p><ul style="color:#fff"><li>✅ Live Paid Clients</li><li>✅ Fast Turnaround</li><li>✅ Johannesburg Based</li></ul><a class="price gold" href="https://wa.me/27780233263" target="_blank">Chat Now →</a></div>
+</div>
+</section>
+
+<section id="digital" style="padding-top:0">
+<div class="proof">
+<div>
+<span class="section-tag" style="color:var(--gold2)">Digital Solutions — Live Paid Work</span>
+<h3>We Don’t Just Promise. We Deliver.</h3>
+<p style="opacity:.9">These websites are PAID and LIVE. This is proof, not talk.</p>
+<ul>
+<li>✅ <b>Shabangu Fast Food</b> — Business Website — <b>R2,500 PAID</b><br><small>For: Fast Food • Small Business</small></li>
+<li>✅ <b>Makhanani Logistics</b> — Booking Website — <b>R4,999 PAID</b><br><small>For: Transport • Logistics • Bookings</small></li>
+</ul>
+</div>
+<div class="proof-box">
+<h4>💻 Your Website</h4>
+<p><b>Business Website — R2,500 Once-Off</b><br>Booking Website — R4,999 Once-Off<br>School Systems — Quote</p>
+<br>
+<a class="btn-navy" href="https://wa.me/27780233263?text=Hi%20I%20want%20a%20website%20-%20R2,500" target="_blank" style="background:#fff;color:var(--navy)">Start My Website →</a>
+<p style="margin-top:10px;font-size:13px">For: Small Businesses • Transport • Fast Food • Schools • Professionals</p>
+</div>
+</div>
+</section>
+
+<section id="academy" style="padding-top:0">
+<span class="section-tag">Academy Of Excellence</span>
+<h3>Learn • Grow • Lead</h3>
+<p class="sub">Tools for Schools, Learners & Teachers.</p>
+<div class="academy" style="margin-top:20px">
+<div><div class="big">📖</div><h4>School Library System</h4><p>Textbook Issuing and Retrieval in <b>1 Click</b></p></div>
+<div><div class="big">💻</div><h4>Mathemate-84</h4><p>Interactive Maths learning tools for engagement & results</p></div>
+<div><div class="big">🏛️</div><h4>Academy Platform</h4><p>Comprehensive online learning & administration portal</p></div>
+</div>
+<p style="text-align:center;margin-top:14px;font-weight:700">For Schools • Learners • Teachers</p>
+</section>
+
+<section id="vukona" style="padding-top:0">
+<div style="background:var(--light);border-radius:20px;padding:28px;display:grid;grid-template-columns:1fr 1fr;gap:20px">
+<div><span class="section-tag">Vukona Press</span><h3>Stories That Empower</h3><p><b>Vukona = Our Presence</b><br>We publish books and stories that carry our voice, our history, our future.</p><br><a class="btn" href="#contact">Publish With Us →</a></div>
+<div><h4>Services:</h4><ul style="margin-left:18px"><li>Books</li><li>Stories</li><li>Youth Authors</li><li>Publishing</li></ul><br><p><b>For:</b> Writers • Schools • Communities</p></div>
+</div>
+</section>
+
+<section id="services" style="padding-top:0">
+<span class="section-tag">Construction & Environmental</span>
+<h3>We Build. We Clean. We Maintain.</h3>
+<div class="split">
+<div class="mini"><h4>🔨 Construction Division</h4><p><b>We Build It Right.</b></p><ul><li>Renovations</li><li>Building</li><li>Civil Works</li><li>Plumbing</li></ul><br><p><b>For:</b> Homes • Schools • Businesses</p><br><a class="btn" href="https://wa.me/27780233263?text=Hi%20I%20need%20a%20Construction%20Quote" target="_blank">FREE Construction Quote →</a></div>
+<div class="mini"><h4>🍃 Environmental Services</h4><p><b>Clean • Green • Reliable</b></p><ul><li>Cleaning</li><li>Disinfection</li><li>Bush Cutting</li><li>Landscaping</li></ul><br><p><b>For:</b> Homes • Schools • Offices</p><br><a class="btn" href="https://wa.me/27780233263?text=Hi%20I%20need%20an%20Environmental%20Quote" target="_blank">FREE Cleaning Quote →</a></div>
+</div>
+</section>
+
+<section id="contact" style="padding-top:0">
+<div class="quote">
+<span class="section-tag">Get A Quote</span>
+<h3>Let’s Build Something For You.</h3>
+<p>Fill this — it opens WhatsApp to us directly. Or call <b>078 023 3263</b></p>
+<form onsubmit="sendWA(event)">
+<input id="name" placeholder="Your Name *" required>
+<input id="phone" placeholder="Your Phone / WhatsApp *" required>
+<select id="service"><option>💻 Digital Solutions — Website R2,500</option><option>💻 Booking Website — R4,999</option><option>📖 Vukona Press — Publishing</option><option>🎓 Academy — School System</option><option>🍃 Environmental — Cleaning / Landscaping</option><option>🔨 Construction — Building / Renovation</option></select>
+<textarea id="msg" rows="3" placeholder="Tell us what you need..."></textarea>
+<button class="btn" type="submit" style="width:100%;font-size:18px;cursor:pointer">Send On WhatsApp →</button>
+</form>
+<p style="margin-top:14px;font-size:14px;color:#666">📧 info@xintimanigroup.co.za &nbsp;|&nbsp; 📍 Johannesburg • Gauteng</p>
+</div>
+</section>
+
+<footer>
+<div class="foot">
+<div><h4>📖🌳 XINTIMANI GROUP</h4><p>Building Solutions. Empowering Communities.</p><br><p>💻 Digital Solutions<br>📖 Vukona Press<br>🎓 Academy of Excellence<br>🍃 Environmental Services<br>🔨 Construction Division</p></div>
+<div><h4>Quick Links</h4><ul><li><a href="#digital">Digital Solutions</a></li><li><a href="#academy">Academy</a></li><li><a href="#vukona">Vukona Press</a></li><li><a href="#services">Construction & Cleaning</a></li><li><a href="#contact">Get Quote</a></li></ul></div>
+<div><h4>Contact</h4><p>📞 078 023 3263<br>✉️ info@xintimanigroup.co.za<br>📍 Johannesburg • Gauteng<br>🌐 vusichauke3037-glitch.github.io</p><br><a class="btn" href="https://wa.me/27780233263" target="_blank">WhatsApp →</a></div>
+</div>
+<div class="foot-bottom">© 2026 Xintimani Group • Building Solutions. Empowering Communities. • All Rights Reserved</div>
+</footer>
+
+<a class="whatsapp" href="https://wa.me/27780233263?text=Hi%20Xintimani%20Group" target="_blank">💬 WhatsApp</a>
+
+<script>
+function sendWA(e){e.preventDefault();
+var n=document.getElementById('name').value;
+var p=document.getElementById('phone').value;
+var s=document.getElementById('service').value;
+var m=document.getElementById('msg').value;
+var text="Hi Xintimani Group!%0A%0AName: "+encodeURIComponent(n)+"%0APhone: "+encodeURIComponent(p)+"%0AService: "+encodeURIComponent(s)+"%0AMessage: "+encodeURIComponent(m);
+window.open("https://wa.me/27780233263?text="+text,"_blank");
+}
+</script>
+</body>
+</html>
