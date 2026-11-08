@@ -1,273 +1,203 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Xintimani Group | Building Solutions. Empowering Communities.</title>
-<meta name="description" content="Xintimani Group - Digital Solutions, Vukona Press, Academy of Excellence, Environmental Services, Construction Division. Johannesburg, Gauteng. WhatsApp 078 023 3263">
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>XINTIMANI GROUP — Building Solutions. Empowering Communities.</title>
+<meta name="description" content="Xintimani Group — Digitals, Construction, Academy, Environmental Services, Vukona Press. Founder Mr Vusi Chauke.">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
-html{overflow-x:clip;width:100%}
-:root{--navy:#0A1A3A;--gold:#C9A227;--gold2:#E8C84A;--light:#F8F6EF;--white:#fff}
-body{background:var(--white);color:var(--navy);line-height:1.6;overflow-x:clip;padding-top:132px}
-a{text-decoration:none;color:inherit;word-break:break-word}
-.topbar{background:var(--navy);color:#fff;padding:8px 10px;text-align:center;font-size:12px;line-height:1.5;position:fixed;top:0;left:0;right:0;z-index:101;height:30px}
-.topbar b{color:var(--gold2)}
-header{background:#fff;padding:10px 14px;border-bottom:3px solid var(--gold);position:fixed;top:30px;left:0;right:0;z-index:100}
-.nav{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.logo{display:flex;align-items:center}
-.logo img{width:150px;height:auto;display:block}
-.nav-links{display:flex;gap:12px;flex-wrap:wrap;font-weight:700;font-size:14px;justify-content:center}
-.nav-links a:hover{color:var(--gold)}
-.btn{background:var(--gold);color:var(--navy);padding:10px 18px;border-radius:30px;font-weight:800;display:inline-block;border:2px solid var(--gold);max-width:100%;text-align:center}
-.btn-navy{background:var(--navy);color:#fff;padding:10px 18px;border-radius:30px;font-weight:800;display:inline-block;max-width:100%;text-align:center}
-.btn-wa{background:#25D366;color:#fff;padding:9px 16px;border-radius:30px;font-weight:800;display:inline-block;border:2px solid #25D366;font-size:14px;white-space:nowrap;max-width:100%}
-.hero{background:var(--navy);color:#fff;padding:44px 16px;text-align:center}
-.hero-inner{max-width:900px;margin:auto}
-.hero .pill{background:rgba(255,255,255,.12);border:1px solid var(--gold);display:inline-block;padding:6px 14px;border-radius:20px;font-size:13px;color:var(--gold2);font-weight:700;max-width:100%}
-.hero h2{font-size:44px;line-height:1.05;margin:16px 0 10px}
-.hero h2 span{color:var(--gold2)}
-.hero p{font-size:18px;opacity:.92;max-width:700px;margin:auto}
-.hero-btns{margin-top:22px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.trust{max-width:1100px;margin:-18px auto 0;background:#fff;border:2px solid var(--gold);border-radius:16px;padding:16px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.12);position:relative;z-index:2}
-.trust div{flex:1;min-width:140px}
-.trust b{font-size:22px;color:var(--navy)}
-.trust span{display:block;font-size:13px;color:#555}
-section{max-width:1100px;margin:auto;padding:48px 16px;width:100%;scroll-margin-top:150px}
-.section-tag{color:var(--gold);font-weight:800;letter-spacing:2px;font-size:13px;text-transform:uppercase}
-h3{font-size:32px;line-height:1.1;margin:8px 0 10px}
-.sub{color:#555;font-size:17px;max-width:750px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
-.card{background:var(--light);border:1px solid #E8E0C5;border-radius:18px;padding:22px;position:relative;overflow:hidden}
-.card.top{border:2px solid var(--gold);background:#fff}
-.card .icon{font-size:38px}
-.card h4{font-size:20px;margin:10px 0 6px}
-.card p{color:#555;font-size:15px}
-.card ul{margin:12px 0 0 18px;color:#333;font-size:15px}
-.card .price{background:var(--navy);color:#fff;display:inline-block;padding:6px 12px;border-radius:20px;font-size:13px;font-weight:800;margin-top:14px}
-.card .price.gold{background:var(--gold);color:var(--navy)}
-.badge{position:absolute;top:14px;right:14px;background:var(--gold);color:var(--navy);font-size:11px;font-weight:800;padding:4px 10px;border-radius:20px}
-.about{background:var(--light);border-radius:20px;padding:28px;display:grid;grid-template-columns:1.2fr .8fr;gap:20px;align-items:start;overflow:hidden}
-.about ul{list-style:none;margin-top:12px}
-.about li{margin-bottom:8px;font-size:15px}
-.vm{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
-.vm-box{background:#fff;border:2px solid var(--gold);border-radius:16px;padding:20px;overflow:hidden}
-.vm-box h4{font-size:20px;margin-bottom:8px}
-.vm-box p{color:#444;font-size:15px}
-.values{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-.values span{background:var(--navy);color:#fff;padding:6px 12px;border-radius:20px;font-size:13px;font-weight:700}
-.proof{background:var(--navy);color:#fff;border-radius:20px;padding:28px;display:grid;grid-template-columns:1.2fr .8fr;gap:20px;align-items:center;overflow:hidden}
-.proof h3{color:#fff}
-.proof ul{list-style:none;margin-top:14px}
-.proof li{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:12px 14px;border-radius:12px;margin-bottom:10px}
-.proof li b{color:var(--gold2)}
-.proof-box{background:var(--gold);color:var(--navy);border-radius:16px;padding:20px;text-align:center;overflow:hidden}
-.proof-box h4{font-size:26px}
-.proof-box p{font-size:15px}
-.academy{background:#FFF8E0;border-radius:20px;padding:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;overflow:hidden}
-.academy>div{background:#fff;border:1px solid var(--gold);border-radius:14px;padding:18px;text-align:center}
-.academy .big{font-size:32px}
-.split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
-.mini{background:#fff;border:1px solid #ddd;border-radius:16px;padding:20px;overflow:hidden}
-.mini h4{font-size:19px;margin-bottom:8px}
-.mini ul{margin-left:18px;color:#444}
-.quote{background:var(--light);border-radius:20px;padding:28px 16px;text-align:center;overflow:hidden;width:100%}
-.quote h3{font-size:30px}
-form{max-width:600px;width:100%;margin:20px auto 0;display:grid;gap:12px;text-align:left}
-input,select,textarea{width:100%;max-width:100%;padding:14px;border:1px solid #ccc;border-radius:12px;font-size:16px;box-sizing:border-box;display:block}
-footer{background:var(--navy);color:#fff;padding:36px 16px 18px;overflow:hidden}
-.foot{max-width:1100px;margin:auto;display:grid;grid-template-columns:1.2fr .8fr .8fr;gap:20px}
-.foot h4{color:var(--gold2);margin-bottom:10px}
-.foot p,.foot li{font-size:14px;opacity:.92;list-style:none;word-break:break-word}
-.foot li{margin-bottom:6px}
-.foot-bottom{max-width:1100px;margin:22px auto 0;border-top:1px solid rgba(255,255,255,.2);padding-top:14px;text-align:center;font-size:13px;opacity:.8}
-@media(max-width:800px){
-body{padding-top:168px}
-.topbar{height:30px;font-size:11px}
-header{top:30px;padding:8px 10px}
-section{scroll-margin-top:185px}
-.hero h2{font-size:32px}.grid{grid-template-columns:1fr}.proof{grid-template-columns:1fr}.academy{grid-template-columns:1fr}.split{grid-template-columns:1fr}.foot{grid-template-columns:1fr}
-.nav{flex-direction:column;gap:8px;text-align:center}
-.logo img{width:150px}
-.nav-links{font-size:13px;gap:10px}
-.btn-wa{font-size:13px;padding:9px 14px;white-space:normal;text-align:center}
-section{padding:32px 12px}
-.about{grid-template-columns:1fr;padding:20px 14px}
-.vm{grid-template-columns:1fr}
-.quote{padding:20px 12px}
-.quote h3{font-size:26px}
-form{padding:0}
-}
-</style>
-</head>
+*{box-sizing:border-box}body{font-family:Arial,sans-serif;margin:0;background:#f8fafc;color:#0f172a;line-height:1.6}
+a{text-decoration:none}
+header{background:#0a1f4d;color:#fff;padding:10px 18px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:30;flex-wrap:wrap;gap:10px}
+header b{font-size:20px;letter-spacing:1px}header b span{color:#d4af37}header small{color:#5eead4}
+.logo-img{height:54px;width:auto;background:#fff;border-radius:10px;padding:4px}
+.logo-hero{height:125px;width:auto;background:#fff;border-radius:18px;padding:10px;box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.logo-footer{height:72px;width:auto;background:#fff;border-radius:12px;padding:6px}
+nav a{color:#fff;margin:0 5px;font-weight:700;font-size:13px}nav a:hover{color:#d4af37}
+.hero{background:linear-gradient(135deg,#0a1f4d 0%,#0d9488 100%);color:#fff;padding:52px 20px;text-align:center}
+.hero h1{font-size:40px;margin:12px 0;line-height:1.1}.hero h1 span{color:#d4af37}.hero p{max-width:760px;margin:10px auto;font-size:16px}
+.btn{display:inline-block;padding:13px 22px;border-radius:30px;font-weight:800;margin:6px;font-size:14px}
+.gold{background:#d4af37;color:#0a1f4d}.white{background:#fff;color:#0a1f4d}.teal{background:#0d9488;color:#fff}.greenbtn{background:#059669;color:#fff}.navybtn{background:#0a1f4d;color:#fff;border:2px solid #d4af37}.purple{background:#7c3aed;color:#fff}.orange{background:#ea580c;color:#fff}
+.wrap{max-width:1120px;margin:0 auto;padding:20px}
+.card{background:#fff;border-radius:16px;padding:20px;margin:12px 0;box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.grid4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px}
+@media(max-width:850px){.grid,.grid2,.grid4{grid-template-columns:1fr}.hero h1{font-size:29px}nav{display:none}.logo-img{height:42px}}
+.badge{display:inline-block;background:#fef3c7;color:#92400e;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:800}
+.badge-green{background:#dcfce7;color:#166534}.badge-blue{background:#dbeafe;color:#1e40af}.badge-purple{background:#ede9fe;color:#5b21b6}
+.division{border:2px solid #0a1f4d;border-radius:18px;padding:22px;background:#fff;margin:16px 0}
+.division-head{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px}
+.product{border:1px solid #e2e8f0;border-radius:14px;padding:16px;background:#f8fafc}
+.price{border:2px solid #0a1f4d;border-radius:16px;padding:18px;text-align:center;background:#fff}.price.pop{border:3px solid #d4af37;background:#fffbeb}.price h3{margin:0;font-size:22px}.price .setup{font-size:22px;font-weight:900;color:#0a1f4d;margin:10px 0}
+.step{background:#eff6ff;border-radius:12px;padding:14px;text-align:center}.step b{font-size:28px;color:#0a1f4d}
+footer{background:#0a1f4d;color:#fff;padding:32px 20px;text-align:center;margin-top:20px}
+input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:10px;border:1px solid #ddd;font-size:14px}
+.explain{background:#ecfdf5;border:2px solid #059669;border-radius:12px;padding:16px}
+.topbtns{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;padding:10px;background:#fff;border-bottom:2px solid #0a1f4d}
+.topbtns a{padding:10px 14px;border-radius:20px;font-weight:800;font-size:13px}
+.pill{display:inline-block;background:#0a1f4d;color:#fff;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:800;margin:2px}
+table{width:100%;border-collapse:collapse;background:#fff}th,td{padding:10px;border:1px solid #eee;text-align:left;font-size:13px}th{background:#0a1f4d;color:#fff}
+</style></head>
 <body>
 
-<div class="topbar">📍 Johannesburg • Gauteng &nbsp;|&nbsp; 📞 078 023 3263 &nbsp;|&nbsp; ✉️ info@xintimanigroup.co.za</div>
+<!-- HEADER -->
+<header><div style="display:flex;align-items:center;gap:10px"><img src="logo.png" alt="XINTIMANI GROUP Logo" class="logo-img" onerror="this.style.display='none'"><div><b>XINTIMANI <span>GROUP</span></b><br><small>Building Solutions. Empowering Communities.</small></div></div>
+<nav><a href="#home">HOME</a><a href="#about">ABOUT</a><a href="#digitals">DIGITALS</a><a href="#construction">CONSTRUCTION</a><a href="#academy">ACADEMY</a><a href="#environmental">ENVIRONMENTAL</a><a href="#vukona">VUKONA PRESS</a><a href="#pricing">PRICING</a><a href="#contact">CONTACT</a><a href="https://vusichauke3037-glitch.github.io/MAKHANANI-LTSM/Joblist.html" target="_blank" style="background:#d4af37;color:#0a1f4d;padding:6px 12px;border-radius:20px">💼 JOB LIST</a><a href="https://vusichauke3037-glitch.github.io/MAKHANANI-LTSM/?open=finance" target="_blank" style="background:#0a1f4d;color:#fff;border:2px solid #d4af37;padding:6px 12px;border-radius:20px">💰 FINANCE 🔒 ADMIN</a></nav>
+<a href="https://wa.me/27780233263" style="background:#16a34a;color:#fff;padding:10px 16px;border-radius:20px;font-weight:800;font-size:13px">💬 WHATSAPP US</a></header>
 
-<header>
-<div class="nav">
-<div class="logo"><img src="logo.png" alt="Xintimani Group Logo - Gold Book and Gold Tree"></div>
-<div class="nav-links"><a href="#about">About</a><a href="#divisions">Divisions</a><a href="#digital">Digital</a><a href="#academy">Academy</a><a href="#services">Services</a><a href="#contact">Contact</a></div>
-<a class="btn-wa" href="https://wa.me/27780233263?text=Hi%20Xintimani%20Group%2C%20I%20want%20a%20quote" target="_blank">💬 WhatsApp 078 023 3263</a>
-</div>
-</header>
-
-<div class="hero">
-<div class="hero-inner">
-<span class="pill">⭐ 5 DIVISIONS • 1 GROUP • JOHANNESBURG</span>
-<h2>Building Solutions.<br><span>Empowering Communities.</span></h2>
-<p>We build websites, publish books, teach learners, clean & maintain spaces, and build homes — all under one trusted name.</p>
-<div class="hero-btns">
-<a class="btn" href="#digital">💻 Get A Website — R2,500</a>
-<a class="btn-navy" style="border:1px solid #fff" href="#contact">Get FREE Quote →</a>
-</div>
-</div>
+<!-- TOP BUTTON BAR -->
+<div class="topbtns">
+<a href="https://vusichauke3037-glitch.github.io/MAKHANANI-LTSM/" target="_blank" style="background:#0a1f4d;color:#fff">📚 MAKHANANI LTSM →</a>
+<a href="https://vusichauke3037-glitch.github.io/MAKHANANI-LTSM/Joblist.html" target="_blank" style="background:#d4af37;color:#0a1f4d">💼 JOB LIST L1-L6 →</a>
+<a href="#digitals" style="background:#0d9488;color:#fff">💻 DIGITALS</a>
+<a href="#academy" style="background:#7c3aed;color:#fff">🎓 ACADEMY</a>
+<a href="https://vusichauke3037-glitch.github.io/MAKHANANI-LTSM/?open=finance" target="_blank" style="background:#fff;color:#0a1f4d;border:2px solid #0a1f4d">💰 FINANCE 🔒 ADMIN ONLY →</a>
+<a href="#pricing" style="background:#ea580c;color:#fff">💰 PRICING</a>
 </div>
 
-<div class="trust">
-<div><b>💻 📖 🎓 🍃 🔨</b><span>5 Divisions</span></div>
-<div><b>R2,500 / R4,999</b><span>Paid Websites — Live Proof</span></div>
-<div><b>078 023 3263</b><span>Call / WhatsApp</span></div>
-<div><b>Johannesburg</b><span>Gauteng, South Africa</span></div>
-</div>
-
-<section id="about" style="padding-bottom:0">
-<div class="about">
-<div>
-<span class="section-tag">About Xintimani Group</span>
-<h3>Who We Are</h3>
-<p style="font-size:17px;color:#333"><b>Xintimani Group</b> is a Johannesburg-based group built on one belief: <b>Real solutions change real lives.</b></p>
-<p style="margin-top:12px;color:#555">We started with a simple idea — one trusted group that can help a small business get online, help a learner succeed, help a writer publish their story, help a home stay clean, and help a family build their dream home.</p>
-<p style="margin-top:10px;color:#555">Today, we do all of that under one name, with one standard: <b>Gold Standard — Clean, Professional, Affordable.</b></p>
-<ul>
-<li>✅ <b>Founded in Johannesburg, Gauteng</b> — Serving South Africa</li>
-<li>✅ <b>5 Divisions, 1 Vision</b> — Digital, Publishing, Education, Environment & Construction</li>
-<li>✅ <b>Proof, Not Promises</b> — Paid live websites for real clients</li>
-<li>✅ <b>Community First</b> — We build for people, not just for profit</li>
-</ul>
-<div class="values"><span>Excellence</span><span>Integrity</span><span>Empowerment</span><span>Community</span><span>Growth</span></div>
-</div>
-<div style="background:var(--navy);color:#fff;border-radius:16px;padding:22px;text-align:center">
-<div style="font-size:40px">📖 🌳</div>
-<h4 style="color:var(--gold2);font-size:22px;margin:8px 0">Our Name, Our Promise</h4>
-<p style="opacity:.9;font-size:15px"><b>Xintimani</b> stands for building, growing and empowering.</p>
-<p style="opacity:.9;font-size:15px;margin-top:10px">The <b>Gold Book</b> = Knowledge, Learning & Stories.<br>The <b>Gold Tree</b> = Growth, Roots & Community.</p>
-<br>
-<p style="font-weight:800;color:var(--gold2)">📞 078 023 3263</p>
-<br>
-<a class="btn" href="#contact">Work With Us →</a>
-</div>
-</div>
-
-<div class="vm">
-<div class="vm-box">
-<h4>👁️ Our Vision</h4>
-<p>To be a trusted, leading group in South Africa that empowers communities through <b>digital innovation, education, publishing, clean environments and quality construction</b> — where every business, learner and family has the tools to grow.</p>
-</div>
-<div class="vm-box" style="border-color:var(--navy)">
-<h4>🎯 Our Mission</h4>
-<p>To deliver <b>affordable, professional and reliable solutions</b> that help small businesses grow online, help learners and schools succeed, help stories be heard, and help homes and workplaces stay clean, safe and built to last.</p>
-</div>
+<!-- HERO -->
+<section id="home" class="hero">
+<img src="logo.png" alt="XINTIMANI GROUP" class="logo-hero" onerror="this.style.display='none'">
+<h1>XINTIMANI <span>GROUP</span></h1>
+<p><b>Building Solutions. Empowering Communities.</b><br>One Group. Five Divisions. One Mission — To build simple systems that work in real South African schools, businesses and communities — even offline.</p>
+<p><span class="badge">✅ TRUSTED BY WORDSWORTH HIGH SCHOOL</span> <span class="badge">🇿🇦 100% SOUTH AFRICAN</span> <span class="badge">🔒 FINANCE = ADMIN ONLY</span></p>
+<div><a class="btn gold" href="#digitals">💻 SEE DIGITALS</a> <a class="btn white" href="#pricing">💰 SEE PRICING</a> <a class="btn teal" href="https://vusichauke3037-glitch.github.io/MAKHANANI-LTSM/Joblist.html" target="_blank">💼 JOB LIST</a> <a class="btn navybtn" href="https://vusichauke3037-glitch.github.io/MAKHANANI-LTSM/?open=finance" target="_blank">💰 FINANCE 🔒 ADMIN</a></div>
+<p style="font-size:13px;opacity:.9">Founder / CEO — Mr Vusi Chauke | WhatsApp 0780233263 | admin@xintimanigroup.co.za</p>
+<p style="font-size:12px;opacity:.8">Finance button opens LTSM System and asks for Admin Password. No money is shown on this public website.</p>
+<div class="grid4" style="max-width:900px;margin:18px auto 0;text-align:left">
+<div class="card" style="margin:0;color:#0f172a"><b>💻 Digitals</b><br><small>LTSM • Logistics • Fast Food • Maths Lit</small></div>
+<div class="card" style="margin:0;color:#0f172a"><b>🏗️ Construction</b><br><small>Building • Renovations • Projects</small></div>
+<div class="card" style="margin:0;color:#0f172a"><b>🎓 Academy</b><br><small>Excellence • Tutoring • Training</small></div>
+<div class="card" style="margin:0;color:#0f172a"><b>🌱 Environmental + 📰 Vukona Press</b><br><small>Clean Communities • Printing • Publishing</small></div>
 </div>
 </section>
 
-<section id="divisions">
-<span class="section-tag">Our Divisions</span>
-<h3>One Group. Five Ways We Serve You.</h3>
-<p class="sub">Click a division to see what we do. Every division is Gold Standard — clean, professional, affordable.</p>
+<div class="wrap">
+
+<!-- ABOUT -->
+<section id="about" class="card"><h2>👋 About Xintimani Group</h2>
+<p><b>Xintimani Group</b> was founded by <b>Mr Vusi Chauke</b> with one mission: <b>Build solutions that empower communities.</b></p>
+<p>We saw schools losing textbooks, learners struggling with Maths Literacy, businesses losing stock, communities living with dirty environments, and young talent with no platform. So we built <b>5 Divisions</b> to fix it — One Group, One Vision.</p>
+<div class="grid"><div class="card" style="text-align:center"><h3>🎯 Mission</h3><p>Make every school, business and community organised, accountable and paper-free.</p></div><div class="card" style="text-align:center"><h3>👁️ Vision</h3><p>Every school and community in South Africa running on Xintimani systems.</p></div><div class="card" style="text-align:center"><h3>💎 Values</h3><p>Honesty • Simplicity • Service • Community First • Excellence</p></div></div>
+<p><span class="pill">DIVISION 1 — DIGITALS</span> <span class="pill" style="background:#ea580c">DIVISION 2 — CONSTRUCTION</span> <span class="pill" style="background:#7c3aed">DIVISION 3 — ACADEMY</span> <span class="pill" style="background:#059669">DIVISION 4 — ENVIRONMENTAL</span> <span class="pill" style="background:#be185d">DIVISION 5 — VUKONA PRESS</span></p>
+</section>
+
+<!-- DIVISION 1 - DIGITALS -->
+<section id="digitals" class="division">
+<div class="division-head"><div><span class="badge badge-green">DIVISION 1 — LIVE NOW ✅</span><h2 style="margin:6px 0">💻 XINTIMANI DIGITALS</h2><p style="color:#475569;margin:0">Digital Systems • School Software • Logistics • Food • Learning Apps • Websites • WhatsApp Tools</p></div><a class="btn teal" href="#pricing">See Pricing →</a></div>
+<p><b>Flagship:</b> <b>MAKHANANI LTSM V1.58</b> — The School System That Works Offline. Plus 3 new products built for real life.</p>
+
+<div class="grid2">
+<!-- PRODUCT 1: LTSM -->
+<div class="product"><span class="badge">PRODUCT 1 — LIVE ✅</span><h3>📚 Makhanani LTSM</h3><p><b>The School System That Works Offline.</b> No more lost books. No more paper registers.</p>
+<ul style="font-size:13px"><li>Books, Learners, Issue / Retrieve, Print Receipt</li><li>Staff, Librarian, Joblist L1-L6, Admin & Audit Log</li><li>Grade Lock, No Duplicate Titles, Live Sync</li><li>One subscription shared by ALL staff</li></ul>
+<a class="btn gold" href="https://vusichauke3037-glitch.github.io/MAKHANANI-LTSM/" target="_blank">🚀 OPEN LTSM →</a> <a class="btn teal" href="https://vusichauke3037-glitch.github.io/MAKHANANI-LTSM/Joblist.html" target="_blank">💼 JOB LIST →</a> <a class="btn navybtn" href="https://vusichauke3037-glitch.github.io/MAKHANANI-LTSM/?open=finance" target="_blank">💰 FINANCE 🔒</a>
+<p style="font-size:12px;color:#64748b">7 Days FREE Trial • Setup Once Forever • Premium Monthly / Yearly</p>
+</div>
+
+<!-- PRODUCT 2: LOGISTICS -->
+<div class="product"><span class="badge badge-blue">PRODUCT 2 — NEW 🆕</span><h3>🚚 Makhanani Logistics</h3><p><b>Deliveries. Collections. School Stock. Sorted.</b> For schools, shops, and small businesses that move goods every day.</p>
+<ul style="font-size:13px"><li>📦 Delivery Booking — School books, parcels, stock</li><li>📍 Track Delivery — Who collected? Who delivered? When?</li><li>🧾 Proof of Delivery — Photo + Signature + WhatsApp receipt</li><li>🚐 Scholar / Staff Transport — Route list, passenger list</li></ul>
+<a class="btn blue" style="background:#0a1f4d;color:#fff" href="https://wa.me/27780233263?text=Hello%20Mr%20Chauke%2C%20I%20want%20Makhanani%20Logistics%20for%20my%20school%20%2F%20business" target="_blank">📩 BOOK LOGISTICS →</a>
+<p style="font-size:12px;color:#64748b">Price on WhatsApp — Depends on distance + load. No hidden fees.</p>
+</div>
+
+<!-- PRODUCT 3: SHABANGU FAST FOOD -->
+<div class="product"><span class="badge" style="background:#ffedd5;color:#9a3412">PRODUCT 3 — NEW 🍔</span><h3>🍔 Shabangu Fast Food</h3><p><b>Fast. Fresh. Affordable. For the Community.</b> Part of Xintimani Digitals — Order on WhatsApp, collect or deliver.</p>
+<ul style="font-size:13px"><li>🍟 Kota / Chips / Burgers / Chicken</li><li>🥤 Cold Drinks + Combo Deals</li><li>📱 Order on WhatsApp — 0780233263</li><li>🚚 Local Delivery via Makhanani Logistics</li></ul>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn orange" href="https://wa.me/27780233263?text=Hello%20Shabangu%20Fast%20Food%2C%20I%20want%20to%20ORDER.%20Please%20send%20menu." target="_blank">🍔 ORDER ON WHATSAPP →</a><a class="btn white" style="border:2px solid #0a1f4d" href="#contact">📋 SEE MENU →</a></div>
+<p style="font-size:12px;color:#64748b">Menu + Prices on WhatsApp. Daily specials. School lunch deals.</p>
+</div>
+
+<!-- PRODUCT 4: MATHS LIT APP -->
+<div class="product"><span class="badge badge-purple">PRODUCT 4 — NEW 📐</span><h3>📐 Makhanani Maths Lit App</h3><p><b>Maths Literacy Made Simple.</b> For Grade 10, 11, 12 learners — Learn, Practice, Pass.</p>
+<ul style="font-size:13px"><li>📚 Grade 10-12 — Finance, Data, Measurement, Maps, Probability</li><li>✍️ Practice Questions + Step-by-Step Solutions</li><li>🎓 Past Papers + Exam Tips — In Simple English</li><li>📱 Works on Any Phone — Even Offline</li></ul>
+<a class="btn purple" href="https://wa.me/27780233263?text=Hello%20Mr%20Chauke%2C%20I%20want%20Makhanani%20Maths%20Lit%20App%20for%20Grade%20" target="_blank">📐 GET MATHS LIT APP →</a>
+<p style="font-size:12px;color:#64748b">For Learners, Teachers, Parents & Schools. Academy + Digitals together.</p>
+</div>
+</div>
+
+<div class="card"><h3>⚙️ How Makhanani LTSM Works — In 6 Steps</h3>
+<div class="grid"><div class="step"><b>1</b><br><b>REGISTER</b><br>EMIS + Password<br>7 Days FREE Trial</div><div class="step"><b>2</b><br><b>LOGIN AS ADMIN</b><br>Your school sees ONLY your data</div><div class="step"><b>3</b><br><b>ADD BOOKS & LEARNERS</b><br>Grade Lock, No Duplicate Titles</div><div class="step"><b>4</b><br><b>ISSUE / RETRIEVE</b><br>Issue, Return, Print Receipt</div><div class="step"><b>5</b><br><b>STAFF & JOBS</b><br>All staff share ONE subscription</div><div class="step"><b>6</b><br><b>ADMIN & AUDIT LOG</b><br>Live Sync, See who did what</div></div>
+<div style="text-align:center;margin-top:12px"><a class="btn gold" href="https://vusichauke3037-glitch.github.io/MAKHANANI-LTSM/" target="_blank">🚀 TRY LTSM NOW</a> <a class="btn teal" href="https://vusichauke3037-glitch.github.io/MAKHANANI-LTSM/Joblist.html" target="_blank">💼 JOB LIST L1-L6</a> <a class="btn navybtn" href="https://vusichauke3037-glitch.github.io/MAKHANANI-LTSM/?open=finance" target="_blank">💰 FINANCE 🔒 ADMIN ONLY</a></div>
+</div>
+</section>
+
+<!-- DIVISION 2 - CONSTRUCTION -->
+<section id="construction" class="division" style="border-color:#ea580c">
+<div class="division-head"><div><span class="badge" style="background:#ffedd5;color:#9a3412">DIVISION 2</span><h2 style="margin:6px 0">🏗️ XINTIMANI CONSTRUCTION</h2><p style="color:#475569;margin:0">Building • Renovations • Maintenance • Community Projects</p></div><a class="btn orange" href="https://wa.me/27780233263?text=Hello%20Mr%20Chauke%2C%20I%20want%20a%20quote%20for%20Construction" target="_blank">📩 GET QUOTE →</a></div>
+<p><b>We Build What Lasts.</b> From small fixes to full builds — Honest quotes, clean work, on time.</p>
 <div class="grid">
-<div class="card top"><span class="badge">MOST POPULAR</span><div class="icon">💻</div><h4>Digital Solutions</h4><p>Websites & Systems that bring customers.</p><ul><li>Business Websites — R2,500 Once-Off</li><li>Booking Websites — R4,999 Once-Off</li><li>School Systems — Quote</li></ul><a class="price gold" href="#digital">View Digital →</a></div>
-<div class="card"><div class="icon">📖</div><h4>Vukona Press</h4><p>Stories That Empower. Vukona = Our Presence.</p><ul><li>Books</li><li>Stories</li><li>Youth Authors & Publishing</li></ul><a class="price" href="#vukona">View Vukona →</a></div>
-<div class="card"><div class="icon">🎓</div><h4>Academy of Excellence</h4><p>Learn • Grow • Lead</p><ul><li>School Library System — 1 Click</li><li>Mathemate-84 Learning</li><li>Academy Platform</li></ul><a class="price" href="#academy">View Academy →</a></div>
-<div class="card"><div class="icon">🍃</div><h4>Environmental Services</h4><p>Clean • Green • Reliable</p><ul><li>Cleaning & Disinfection</li><li>Bush Cutting</li><li>Landscaping</li></ul><a class="price" href="#services">FREE Quote →</a></div>
-<div class="card"><div class="icon">🔨</div><h4>Construction Division</h4><p>We Build It Right.</p><ul><li>Renovations</li><li>Building & Civil Works</li><li>Plumbing</li></ul><a class="price" href="#services">FREE Quote →</a></div>
-<div class="card" style="background:var(--navy);color:#fff"><div class="icon">⭐</div><h4 style="color:#fff">Why Choose Us?</h4><p style="color:#fff;opacity:.9">Real paid work. Real people. Real results. No empty promises.</p><ul style="color:#fff"><li>✅ Live Paid Clients</li><li>✅ Fast Turnaround</li><li>✅ Johannesburg Based</li><li>✅ Call: 078 023 3263</li></ul><a class="price gold" href="#contact">Contact Us →</a></div>
+<div class="card"><h3>🏠 Building & Renovations</h3><p>New rooms, extensions, kitchens, bathrooms, boundary walls, paving.</p><p style="font-size:13px">✅ Free Site Visit • ✅ Written Quote • ✅ No Hidden Costs</p></div>
+<div class="card"><h3>🏫 School Projects</h3><p>Classroom repairs, library shelves, LTSM storerooms, toilets, painting, fencing.</p><p style="font-size:13px">Trusted by schools — Same care as Makhanani LTSM.</p></div>
+<div class="card"><h3>🔧 Maintenance</h3><p>Fix broken doors, shelves, locks, taps, roofs, electrical basics. Call once, fixed.</p><a class="btn orange" href="https://wa.me/27780233263?text=Hello%20Mr%20Chauke%2C%20I%20need%20Maintenance%20%2F%20Repairs" target="_blank">🔧 BOOK REPAIR →</a></div>
+</div>
+<table><tr><th>Service</th><th>What You Get</th><th>Price</th></tr><tr><td>Site Visit + Quote</td><td>We visit, measure, give written quote</td><td><b>FREE</b> (Local)</td></tr><tr><td>Small Repairs</td><td>Door, lock, shelf, tap, painting</td><td>Quote on WhatsApp</td></tr><tr><td>Full Project</td><td>Building / Renovation</td><td>Quote After Site Visit</td></tr></table>
+</section>
+
+<!-- DIVISION 3 - ACADEMY -->
+<section id="academy" class="division" style="border-color:#7c3aed">
+<div class="division-head"><div><span class="badge badge-purple">DIVISION 3</span><h2 style="margin:6px 0">🎓 XINTIMANI ACADEMY OF EXCELLENCE</h2><p style="color:#475569;margin:0">Tutoring • Training • Maths Lit • Life Skills • Excellence</p></div><a class="btn purple" href="https://wa.me/27780233263?text=Hello%20Mr%20Chauke%2C%20I%20want%20to%20join%20Xintimani%20Academy" target="_blank">🎓 JOIN ACADEMY →</a></div>
+<p><b>Excellence Is Not Luck. It Is Trained.</b> Academy + Maths Lit App together — Learn in class, practice on phone.</p>
+<div class="grid">
+<div class="card"><h3>📐 Maths Lit Academy</h3><p>Grade 10-12 Maths Literacy — Finance, Data, Maps, Measurement, Probability. Simple English, step-by-step.</p><a class="btn purple" href="https://wa.me/27780233263?text=Hello%2C%20I%20want%20Maths%20Lit%20Tutoring%20Grade%20" target="_blank">📐 BOOK MATHS LIT →</a></div>
+<div class="card"><h3>📚 All Subjects Tutoring</h3><p>English, Maths, Life Sciences, Business, Accounting, History — One-on-one or small groups.</p><a class="btn white" style="border:2px solid #7c3aed" href="https://wa.me/27780233263?text=Hello%2C%20I%20want%20Tutoring%20for%20" target="_blank">📚 BOOK TUTORING →</a></div>
+<div class="card"><h3>💼 Skills & Training</h3><p>Computer basics, WhatsApp for Business, CV writing, Interview prep, LTSM training for schools.</p><a class="btn white" style="border:2px solid #7c3aed" href="#contact">💼 BOOK TRAINING →</a></div>
+</div>
+<div class="card"><h3>🎓 Academy + Maths Lit App — How It Works</h3><p><b>1.</b> Join Academy on WhatsApp → <b>2.</b> Get Maths Lit App access → <b>3.</b> Attend classes / Get lessons → <b>4.</b> Practice on App → <b>5.</b> Pass with confidence.</p><p style="font-size:13px">For Learners, Parents, Teachers & Schools. Ask for Academy prices on WhatsApp — Depends on grade + group size.</p></div>
+</section>
+
+<!-- DIVISION 4 - ENVIRONMENTAL -->
+<section id="environmental" class="division" style="border-color:#059669">
+<div class="division-head"><div><span class="badge badge-green">DIVISION 4</span><h2 style="margin:6px 0">🌱 XINTIMANI ENVIRONMENTAL SERVICES</h2><p style="color:#475569;margin:0">Clean Communities • Waste • Green Spaces • Recycling</p></div><a class="btn greenbtn" href="https://wa.me/27780233263?text=Hello%20Mr%20Chauke%2C%20I%20want%20Environmental%20Services" target="_blank">🌱 BOOK CLEAN-UP →</a></div>
+<p><b>Clean Community = Healthy Community.</b> We clean, we green, we teach.</p>
+<div class="grid">
+<div class="card"><h3>🧹 Cleaning & Waste</h3><p>School cleaning, yard cleaning, illegal dumping clean-up, bin management, event clean-up.</p></div>
+<div class="card"><h3>🌳 Greening & Gardens</h3><p>Plant trees, school gardens, community gardens, grass cutting, beautification.</p></div>
+<div class="card"><h3>♻️ Recycling & Awareness</h3><p>Recycling collection, awareness campaigns in schools, “Clean School” competitions.</p><a class="btn greenbtn" href="https://wa.me/27780233263?text=Hello%2C%20I%20want%20Recycling%20%2F%20Clean-Up%20Campaign" target="_blank">♻️ START CAMPAIGN →</a></div>
 </div>
 </section>
 
-<section id="digital" style="padding-top:0">
-<div class="proof">
-<div>
-<span class="section-tag" style="color:var(--gold2)">Digital Solutions — Live Paid Work</span>
-<h3>We Don’t Just Promise. We Deliver.</h3>
-<p style="opacity:.9">These websites are PAID and LIVE. This is proof, not talk.</p>
-<ul>
-<li>✅ <b>Shabangu Fast Food</b> — Business Website — <b>R2,500 PAID</b><br><small>For: Fast Food • Small Business</small></li>
-<li>✅ <b>Makhanani Logistics</b> — Booking Website — <b>R4,999 PAID</b><br><small>For: Transport • Logistics • Bookings</small></li>
-</ul>
-</div>
-<div class="proof-box">
-<h4>💻 Your Website</h4>
-<p><b>Business Website — R2,500 Once-Off</b><br>Booking Website — R4,999 Once-Off<br>School Systems — Quote</p>
-<br>
-<a class="btn-navy" href="#contact" style="background:#fff;color:var(--navy)">Start My Website →</a>
-<p style="margin-top:10px;font-size:13px">For: Small Businesses • Transport • Fast Food • Schools • Professionals</p>
-</div>
+<!-- DIVISION 5 - VUKONA PRESS -->
+<section id="vukona" class="division" style="border-color:#be185d">
+<div class="division-head"><div><span class="badge" style="background:#fce7f3;color:#9d174d">DIVISION 5</span><h2 style="margin:6px 0">📰 VUKONA PRESS</h2><p style="color:#475569;margin:0">Printing • Publishing • Design • Media — “Vukona” Means “Wake Up / Rise”</p></div><a class="btn" style="background:#be185d;color:#fff" href="https://wa.me/27780233263?text=Hello%20Vukona%20Press%2C%20I%20want%20Printing%20%2F%20Design" target="_blank">📰 ORDER PRINTING →</a></div>
+<p><b>Your Story. Printed Beautifully.</b> From one flyer to a full book — We design, print and publish.</p>
+<div class="grid">
+<div class="card"><h3>🖨️ Printing</h3><p>Flyers, posters, business cards, banners, school reports, exam papers, certificates, T-shirts.</p></div>
+<div class="card"><h3>📖 Publishing</h3><p>Books, magazines, school newsletters, community newspapers, e-books. We help you write, edit, publish.</p></div>
+<div class="card"><h3>🎨 Design & Media</h3><p>Logos, WhatsApp adverts, social media posts, job lists, workflow posters, CVs.</p><a class="btn" style="background:#be185d;color:#fff" href="https://wa.me/27780233263?text=Hello%20Vukona%20Press%2C%20I%20want%20Design%20%2F%20Logo%20%2F%20Flyer" target="_blank">🎨 ORDER DESIGN →</a></div>
 </div>
 </section>
 
-<section id="academy" style="padding-top:0">
-<span class="section-tag">Academy Of Excellence</span>
-<h3>Learn • Grow • Lead</h3>
-<p class="sub">Tools for Schools, Learners & Teachers.</p>
-<div class="academy" style="margin-top:20px">
-<div><div class="big">📖</div><h4>School Library System</h4><p>Textbook Issuing and Retrieval in <b>1 Click</b></p></div>
-<div><div class="big">💻</div><h4>Mathemate-84</h4><p>Interactive Maths learning tools for engagement & results</p></div>
-<div><div class="big">🏛️</div><h4>Academy Platform</h4><p>Comprehensive online learning & administration portal</p></div>
-</div>
-<p style="text-align:center;margin-top:14px;font-weight:700">For Schools • Learners • Teachers &nbsp;|&nbsp; 📞 078 023 3263</p>
+<!-- JOBLIST SECTION -->
+<section id="joblist" class="card" style="border:3px solid #d4af37;background:#fffbeb"><h2>💼 Job List By Level — L1 to L6</h2>
+<p>See exactly who does what in Makhanani LTSM. Top-Down: No one skips levels.</p>
+<div class="grid"><div class="card"><b>L1 SUPERADMIN</b><p>Approve schools, Activate subscriptions, Fix system, Backup.</p></div><div class="card"><b>L2 PRINCIPAL</b><p>Approve counts, Approve staff, Check Audit Log, Renew.</p></div><div class="card"><b>L3 LIBRARIAN</b><p>Add books, Count books, Issue / Retrieve, Report lost.</p></div><div class="card"><b>L4 TEACHER</b><p>Give book list, Collect books, Report missing.</p></div><div class="card"><b>L5 SUPPORT</b><p>Capture learners, Clean library, Lock storeroom.</p></div><div class="card"><b>L6 LEARNER</b><p>Carry books, Count returned books, Remind classmates.</p></div></div>
+<div style="text-align:center"><a class="btn gold" href="https://vusichauke3037-glitch.github.io/MAKHANANI-LTSM/Joblist.html" target="_blank">💼 OPEN FULL JOB LIST →</a></div>
 </section>
 
-<section id="vukona" style="padding-top:0">
-<div style="background:var(--light);border-radius:20px;padding:28px;display:grid;grid-template-columns:1fr 1fr;gap:20px;overflow:hidden">
-<div><span class="section-tag">Vukona Press</span><h3>Stories That Empower</h3><p><b>Vukona = Our Presence</b><br>We publish books and stories that carry our voice, our history, our future.</p><br><a class="btn" href="#contact">Publish With Us →</a></div>
-<div><h4>Services:</h4><ul style="margin-left:18px"><li>Books</li><li>Stories</li><li>Youth Authors</li><li>Publishing</li></ul><br><p><b>For:</b> Writers • Schools • Communities</p></div>
+<!-- PRICING -->
+<section id="pricing"><h2>💰 Pricing — Makhanani LTSM</h2>
+<div class="explain"><h3 style="margin:0">💡 How Pricing Works — Read This First (30 Seconds)</h3>
+<p><b>1. SETUP FEE = Pay ONCE, FOREVER.</b> You pay setup only one time when you join. You NEVER pay setup again.<br><b>2. PREMIUM = Your Subscription.</b> After setup, choose <b>Monthly</b> OR <b>Yearly</b>. Premium is renewed.<br><b>3. ONE subscription shared by ALL staff</b> in your school. No per-user fees.</p>
+<p style="background:#fff;padding:10px;border-radius:8px"><b>Example — STANDARD:</b> Pay Setup R4 500 once forever ✅ Then choose: R500 / month (renews monthly) <b>OR</b> R7 500 / year (renews yearly). Next year you pay ONLY premium — NOT setup again.</p></div>
+<div class="grid2" style="margin-top:14px">
+<div class="price"><h3>🎁 7 DAYS FREE TRIAL</h3><p>Try Before You Pay</p><div class="setup">Setup: FREE</div><p>Premium: <b>FREE for 7 Days</b></p><p>All Features<br>1 School<br>WhatsApp Support</p><a class="btn greenbtn" href="https://wa.me/27780233263?text=Hello%20Mr%20Chauke%2C%20I%20want%20the%20FREE%207%20Days%20DEMO%20for%20Makhanani%20LTSM">➡️📱 REQUEST DEMO</a></div>
+<div class="price"><h3>STARTER</h3><p>1 School</p><div class="setup">Setup: R3 000<br><small style="font-size:12px;color:#059669">✅ ONCE-OFF FOREVER — Never Pay Again</small></div><p><b>Then Choose Premium:</b><br>Monthly: <b>R350 / month</b> — Renews Monthly<br>Yearly: <b>R4 500 / year</b> — Renews Yearly</p><p>All LTSM Features<br>Up to 300 Learners<br>WhatsApp Support</p><a class="btn greenbtn" href="https://wa.me/27780233263?text=Hello%20Mr%20Chauke%2C%20I%20want%20STARTER.%20Setup%20R3000%20once%20forever%20%2B%20Premium%20R350%2Fmonth%20OR%20R4500%2Fyear">➡️📱 REQUEST STARTER</a></div>
+<div class="price pop"><h3>STANDARD</h3><p>⭐ Most Popular</p><div class="setup">Setup: R4 500<br><small style="font-size:12px;color:#059669">✅ ONCE-OFF FOREVER — Never Pay Again</small></div><p><b>Then Choose Premium:</b><br>Monthly: <b>R500 / month</b> — Renews Monthly<br>Yearly: <b>R7 500 / year</b> — Renews Yearly</p><p>All Features<br>Up to 1000 Learners<br>Priority WhatsApp Support + Backup Help</p><a class="btn greenbtn" href="https://wa.me/27780233263?text=Hello%20Mr%20Chauke%2C%20I%20want%20STANDARD.%20Setup%20R4500%20once%20forever%20%2B%20Premium%20R500%2Fmonth%20OR%20R7500%2Fyear">➡️📱 REQUEST STANDARD</a></div>
+<div class="price"><h3>PREMIUM</h3><p>Premium</p><div class="setup">Setup: R5 500<br><small style="font-size:12px;color:#059669">✅ ONCE-OFF FOREVER — Never Pay Again</small></div><p><b>Then Choose Premium:</b><br>Monthly: <b>R600 / month</b> — Renews Monthly<br>Yearly: <b>R9 000 / year</b> — Renews Yearly</p><p>All Features • Unlimited Learners<br>Dedicated Support • Staff Training<br>Large Schools / Districts</p><a class="btn greenbtn" href="https://wa.me/27780233263?text=Hello%20Mr%20Chauke%2C%20I%20want%20PREMIUM.%20Setup%20R5500%20once%20forever%20%2B%20Premium%20R600%2Fmonth%20OR%20R9000%2Fyear">➡️📱 REQUEST PREMIUM</a></div>
 </div>
+<div class="card"><h3>💰 Other Divisions — Pricing</h3><p><b>Logistics:</b> Price on WhatsApp — Depends on distance + load. <b>Shabangu Fast Food:</b> Menu + Prices on WhatsApp. <b>Maths Lit App + Academy:</b> Price on WhatsApp — Depends on grade + group size. <b>Construction:</b> FREE site visit (local) + Written quote. <b>Environmental:</b> Quote on WhatsApp. <b>Vukona Press:</b> Quote on WhatsApp — Flyer from R150.</p><p style="font-size:12px">Confirm on WhatsApp before paying. Never share PIN / OTP / CVV.</p></div>
 </section>
 
-<section id="services" style="padding-top:0">
-<span class="section-tag">Construction & Environmental</span>
-<h3>We Build. We Clean. We Maintain.</h3>
-<div class="split">
-<div class="mini"><h4>🔨 Construction Division</h4><p><b>We Build It Right.</b></p><ul><li>Renovations</li><li>Building</li><li>Civil Works</li><li>Plumbing</li></ul><br><p><b>For:</b> Homes • Schools • Businesses</p><br><a class="btn" href="#contact">FREE Construction Quote →</a></div>
-<div class="mini"><h4>🍃 Environmental Services</h4><p><b>Clean • Green • Reliable</b></p><ul><li>Cleaning</li><li>Disinfection</li><li>Bush Cutting</li><li>Landscaping</li></ul><br><p><b>For:</b> Homes • Schools • Offices</p><br><a class="btn" href="#contact">FREE Cleaning Quote →</a></div>
-</div>
-</section>
+<section class="card"><h2>⭐ Trusted By Schools</h2>
+<blockquote style="border-left:4px solid #d4af37;padding-left:12px"><b>WORDSWORTH HIGH SCHOOL (700310854)</b><br>“Makhanani LTSM helped us know exactly which books are out, who has them, and when they must return. No more paper mess.”</blockquote></section>
 
-<section id="contact" style="padding-top:0">
-<div class="quote">
-<span class="section-tag">Get A Quote</span>
-<h3>Let’s Build Something For You.</h3>
-<p>Fill this in — we will reply on WhatsApp / Call.<br>Or call us directly on <b>078 023 3263</b></p>
-<form onsubmit="sendWA(event)">
-<input id="name" placeholder="Your Name *" required>
-<input id="phone" placeholder="Your Phone / WhatsApp *" required>
-<select id="service"><option>💻 Digital Solutions — Website R2,500</option><option>💻 Booking Website — R4,999</option><option>📖 Vukona Press — Publishing</option><option>🎓 Academy — School System</option><option>🍃 Environmental — Cleaning / Landscaping</option><option>🔨 Construction — Building / Renovation</option></select>
-<textarea id="msg" rows="3" placeholder="Tell us what you need..."></textarea>
-<button class="btn" type="submit" style="width:100%;font-size:18px;cursor:pointer">Send My Request →</button>
-</form>
-<p style="margin-top:14px;font-size:14px;color:#666;line-height:1.8">📞 078 023 3263<br>📧 info@xintimanigroup.co.za<br>📍 Johannesburg • Gauteng<br>🌐 vusichauke3037-glitch.github.io/XINTIMANI-GROUP/</p>
+<!-- CONTACT -->
+<section id="contact" class="card"><h2>📞 Contact Xintimani Group</h2>
+<div class="grid"><div><h3>Founder / CEO</h3><p><b>Mr Vusi Chauke</b><br>WhatsApp: <b>0780233263</b><br>Email: <b>admin@xintimanigroup.co.za</b></p><a class="btn greenbtn" href="https://wa.me/27780233263?text=Hello%20Mr%20Chauke%2C%20I%20want%20to%20register%20my%20school%20for%20Makhanani%20LTSM">💬 WHATSAPP NOW</a><br><a class="btn navybtn" href="https://vusichauke3037-glitch.github.io/MAKHANANI-LTSM/?open=finance" target="_blank">💰 FINANCE 🔒 ADMIN ONLY</a></div>
+<div><h3>Send Enquiry</h3><form onsubmit="sendWA(event)"><input id="cName" placeholder="Your Name" required><input id="cSchool" placeholder="School / Business Name" required><select id="cNeed"><option>Need: FREE DEMO - Makhanani LTSM - 7 Days</option><option>Need: STARTER - Setup R3000 Once Forever</option><option>Need: STANDARD - Setup R4500 Once Forever</option><option>Need: PREMIUM - Setup R5500 Once Forever</option><option>Need: Makhanani Logistics</option><option>Need: Shabangu Fast Food - Order</option><option>Need: Makhanani Maths Lit App</option><option>Need: Xintimani Construction - Quote</option><option>Need: Xintimani Academy - Tutoring</option><option>Need: Environmental Services</option><option>Need: Vukona Press - Printing / Design</option><option>Need: Job List</option></select><textarea id="cMsg" placeholder="Message... Monthly or Yearly Premium? Grade? What do you need?" rows="3"></textarea><button class="btn gold" style="width:100%;border:none;cursor:pointer">📩 SEND VIA WHATSAPP</button></form></div>
+<div><h3>Quick Links — All 5 Divisions</h3><p><a href="#digitals">💻 Division 1 — Xintimani Digitals</a><br><a href="#construction">🏗️ Division 2 — Xintimani Construction</a><br><a href="#academy">🎓 Division 3 — Xintimani Academy of Excellence</a><br><a href="#environmental">🌱 Division 4 — Environmental Services</a><br><a href="#vukona">📰 Division 5 — Vukona Press</a><br><br><a href="https://vusichauke3037-glitch.github.io/MAKHANANI-LTSM/">📚 Makhanani LTSM System</a><br><a href="https://vusichauke3037-glitch.github.io/MAKHANANI-LTSM/Joblist.html">💼 Job List L1-L6</a><br><a href="https://vusichauke3037-glitch.github.io/MAKHANANI-LTSM/?open=finance" target="_blank">💰 Finance 🔒 Admin Only</a></p></div></div></section>
 </div>
-</section>
 
-<footer>
-<div class="foot">
-<div><h4>XINTIMANI GROUP</h4><p>Building Solutions. Empowering Communities.</p><br><p>💻 Digital Solutions<br>📖 Vukona Press<br>🎓 Academy of Excellence<br>🍃 Environmental Services<br>🔨 Construction Division</p></div>
-<div><h4>Quick Links</h4><ul><li><a href="#about">About Us</a></li><li><a href="#digital">Digital Solutions</a></li><li><a href="#academy">Academy</a></li><li><a href="#vukona">Vukona Press</a></li><li><a href="#services">Construction & Cleaning</a></li><li><a href="#contact">Get Quote</a></li></ul></div>
-<div><h4>Contact</h4><p>📞 Call / WhatsApp: <b>078 023 3263</b><br>✉️ info@xintimanigroup.co.za<br>📍 Johannesburg • Gauteng<br>🌐 vusichauke3037-glitch.github.io/XINTIMANI-GROUP/</p><br><a class="btn" href="#contact">Get A Quote →</a></div>
-</div>
-<div class="foot-bottom">© 2026 Xintimani Group • Building Solutions. Empowering Communities. • 078 023 3263 • All Rights Reserved</div>
-</footer>
-
+<footer><img src="logo.png" alt="XINTIMANI GROUP" class="logo-footer" onerror="this.style.display='none'"><h3>XINTIMANI GROUP</h3><p>Building Solutions. Empowering Communities.</p><p><b>Division 1</b> Digitals • <b>Division 2</b> Construction • <b>Division 3</b> Academy of Excellence • <b>Division 4</b> Environmental Services • <b>Division 5</b> Vukona Press</p><p>Founder / CEO — Mr Vusi Chauke | WhatsApp 0780233263 | admin@xintimanigroup.co.za</p><p style="font-size:12px;opacity:.8">© 2026 Xintimani Group. All Rights Reserved. | Makhanani LTSM V1.58 | Finance = Admin Only</p></footer>
 <script>
-function sendWA(e){e.preventDefault();
-var n=document.getElementById('name').value;
-var p=document.getElementById('phone').value;
-var s=document.getElementById('service').value;
-var m=document.getElementById('msg').value;
-var text="Hi Xintimani Group!%0A%0AName: "+encodeURIComponent(n)+"%0APhone: "+encodeURIComponent(p)+"%0AService: "+encodeURIComponent(s)+"%0AMessage: "+encodeURIComponent(m);
-window.open("https://wa.me/27780233263?text="+text,"_blank");
-}
+function sendWA(e){e.preventDefault();var n=document.getElementById('cName').value;var s=document.getElementById('cSchool').value;var need=document.getElementById('cNeed').value;var m=document.getElementById('cMsg').value;var txt='Hello Mr Chauke, I am '+n+' from '+s+'. '+need+'. Message: '+m;window.open('https://wa.me/27780233263?text='+encodeURIComponent(txt),'_blank');}
 </script>
-</body>
-</html>
+</body></html>
