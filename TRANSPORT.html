@@ -29,18 +29,15 @@ canvas{border:2px dashed #0a1f4d;border-radius:8px;width:100%;background:white;t
 </head>
 <body>
 
-<!-- SCHOOL VIEW -->
 <div id="schoolView" style="display:none">
   <div class="header"><h1>XINTIMANI GROUP</h1><p>📦 TRACK YOUR ORDER - LIVE</p><span class="live">● LIVE</span></div>
   <div id="schoolOrder"></div>
   <p style="text-align:center;font-size:13px;color:#64748b">Mr Vusi Chauke - 078 023 3263</p>
 </div>
 
-<!-- STAFF VIEW -->
 <div id="adminView">
 <div class="header"><h1>XINTIMANI GROUP</h1><p>🚚 TRANSPORT v4 - AUTH + STORAGE</p><span class="live">● LIVE SYNC ON</span></div>
 
-<!-- LOGIN -->
 <div class="card" id="loginCard">
   <b>🔐 Staff Login</b>
   <input id="loginEmail" placeholder="Email - e.g. vusi@xintimanigroup.co.za">
@@ -54,7 +51,6 @@ canvas{border:2px dashed #0a1f4d;border-radius:8px;width:100%;background:white;t
   <button class="btn-red" onclick="logout()">Logout</button>
 </div>
 
-<!-- NEW ORDER - Only if logged in -->
 <div class="card hidden" id="newOrderCard">
   <b>➕ New Transport Order</b>
   <input id="school" placeholder="School / Customer Name">
@@ -81,19 +77,22 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 import { getFirestore, collection, addDoc, doc, updateDoc, onSnapshot, query, orderBy, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
 
-// ===== PASTE YOUR FIREBASE CONFIG =====
+// ===== YOUR FIREBASE CONFIG - xintimani-transport =====
 const firebaseConfig = {
-  apiKey: "PASTE_YOUR_API_KEY",
-  authDomain: "PASTE_YOUR_PROJECT.firebaseapp.com",
-  projectId: "PASTE_YOUR_PROJECT_ID",
-  storageBucket: "PASTE_YOUR_PROJECT.appspot.com",
-  messagingSenderId: "PASTE_YOUR_SENDER_ID",
-  appId: "PASTE_YOUR_APP_ID"
+  apiKey: "AIzaSyDhERabyeX4OVzjmU-8GljG_LsqhP0Zfzs",
+  authDomain: "xintimani-transport.firebaseapp.com",
+  projectId: "xintimani-transport",
+  storageBucket: "xintimani-transport.firebasestorage.app",
+  messagingSenderId: "333545408888",
+  appId: "1:333545408888:web:791e72f52c39a2c18aa08d",
+  measurementId: "G-6Z6KC0P4PM"
 };
-// ======================================
+// ======================================================
 
 const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 const db = getFirestore(app);
 const auth = getAuth(app);
 const storage = getStorage(app);
@@ -103,21 +102,18 @@ const params = new URLSearchParams(location.search);
 const schoolId = params.get("order");
 let orders = [];
 let filter = "ALL";
-let currentUser = null; // {uid, email, name, role, driverName}
+let currentUser = null;
 let sigCanvas, sigCtx, drawing=false;
 
-// --- AUTH ---
 window.login = async () => {
   try {
     const email = document.getElementById("loginEmail").value;
     const pass = document.getElementById("loginPass").value;
     const cred = await signInWithEmailAndPassword(auth, email, pass);
-    // Load role from /staff/{uid}
     const staffSnap = await getDoc(doc(db, "staff", cred.user.uid));
     if(staffSnap.exists()){
       currentUser = {uid: cred.user.uid, email, ...staffSnap.data()};
     } else {
-      // Fallback: infer from email
       currentUser = {uid: cred.user.uid, email, name: email, role: email.includes("driver") ? "DRIVER" : email.includes("coordinator") ? "TRANSPORT_COORDINATOR" : "ADMIN"};
     }
     alert("Logged in: " + currentUser.name + " (" + currentUser.role + ")");
@@ -143,13 +139,12 @@ function canManage(){ return currentUser && ["ADMIN","TRANSPORT_COORDINATOR"].in
 function canDrive(){ return currentUser && ["ADMIN","TRANSPORT_COORDINATOR","DRIVER"].includes(currentUser.role); }
 function requireLogin(){ if(!currentUser){ alert("Please login as Staff first."); return false; } return true; }
 
-// --- CREATE ---
 window.createOrder = async () => {
   if(!requireLogin()) return;
   const o={ school:document.getElementById("school").value, emis:document.getElementById("emis").value,
     phone:document.getElementById("phone").value, items:document.getElementById("items").value,
     address:document.getElementById("address").value, date:document.getElementById("date").value,
-    status:"PENDING", driver:"", podPhoto:"", podPhotoUrl:"", signature:"", trackLink:"",
+    status:"PENDING", driver:"", podPhotoUrl:"", signature:"", trackLink:"",
     createdAt: Date.now(),
     audit:[`${new Date().toLocaleString("en-ZA")} - Order created by ${currentUser.name}`]};
   if(!o.school||!o.items){alert("Fill School + Items");return;}
@@ -157,7 +152,6 @@ window.createOrder = async () => {
   alert("Order created: " + ref.id);
 };
 
-// --- STATUS ---
 window.updateStatus = async (id, newStatus) => {
   if(!requireLogin()) return;
   const o=orders.find(x=>x.id===id);
@@ -177,7 +171,6 @@ window.updateStatus = async (id, newStatus) => {
   sendWhatsApp({...o, status:newStatus, driver}, newStatus);
 };
 
-// --- TRACK LOCATION ---
 window.shareLocation = (id) => {
   if(!requireLogin()) return;
   const o=orders.find(x=>x.id===id);
@@ -192,14 +185,12 @@ window.shareLocation = (id) => {
   },()=>alert("Please allow location permission"));
 };
 
-// --- STORAGE: Proof Photo to Firebase Storage ---
 window.takePhoto = (id) => {
   if(!requireLogin()) return;
   const input=document.createElement("input"); input.type="file"; input.accept="image/*"; input.capture="environment";
   input.onchange=async e=>{
-    const file=e.target.files[0];
-    if(!file) return;
-    if(file.size > 5*1024*1024){ alert("Photo too big - max 5MB. Take smaller photo."); return; }
+    const file=e.target.files[0]; if(!file) return;
+    if(file.size > 5*1024*1024){ alert("Photo too big - max 5MB."); return; }
     alert("Uploading photo to Storage... Please wait");
     try{
       const storageRef = ref(storage, `proof/${id}_${Date.now()}_${file.name}`);
@@ -213,7 +204,6 @@ window.takePhoto = (id) => {
   }; input.click();
 };
 
-// --- SIGNATURE ---
 window.openSignature = (id) => {
   if(!requireLogin()) return;
   document.getElementById("sigBox_"+id).style.display="block";
@@ -235,7 +225,6 @@ window.saveSignature = async (id) => {
 };
 window.clearSignature = () => { sigCtx.clearRect(0,0,sigCanvas.width,sigCanvas.height); };
 
-// --- SCHOOL LINK ---
 window.copySchoolLink = (id) => {
   const o=orders.find(x=>x.id===id);
   const base=location.href.split("?")[0];
@@ -284,7 +273,6 @@ function render(){
   </div>`).join("")||"<p style='text-align:center;padding:20px'>No orders in this filter.</p>";
 }
 
-// --- LIVE LISTENERS ---
 if(schoolId){
   document.getElementById("adminView").style.display="none";
   document.getElementById("schoolView").style.display="block";
