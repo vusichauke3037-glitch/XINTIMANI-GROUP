@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Xintimani Transport v2 - Track + School Link</title>
+<title>Xintimani Transport v4 - Auth + Storage</title>
 <style>
 *{box-sizing:border-box;font-family:Arial,sans-serif}
 body{margin:0;background:#f1f5f9;padding:12px}
@@ -14,7 +14,7 @@ input,select,textarea{width:100%;padding:10px;margin:6px 0;border:1px solid #cbd
 button{width:100%;padding:12px;border:0;border-radius:8px;font-weight:bold;margin-top:6px;cursor:pointer}
 .btn-green{background:#059669;color:white}.btn-blue{background:#2563eb;color:white}
 .btn-orange{background:#ea580c;color:white}.btn-purple{background:#7c3aed;color:white}
-.btn-grey{background:#64748b;color:white}.btn-black{background:#0a1f4d;color:white}
+.btn-grey{background:#64748b;color:white}.btn-black{background:#0a1f4d;color:white}.btn-red{background:#dc2626;color:white}
 .badge{display:inline-block;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:bold;color:white}
 .PENDING{background:#f59e0b}.ACKNOWLEDGED{background:#2563eb}.ON_THE_WAY{background:#ea580c}.DELIVERED{background:#059669}
 .meta{font-size:13px;color:#475569}.audit{font-size:12px;background:#f8fafc;padding:8px;border-radius:8px;margin-top:8px;white-space:pre-wrap}
@@ -23,33 +23,39 @@ button{width:100%;padding:12px;border:0;border-radius:8px;font-weight:bold;margi
 img.pod{width:100%;border-radius:8px;margin-top:8px}
 canvas{border:2px dashed #0a1f4d;border-radius:8px;width:100%;background:white;touch-action:none}
 .track-box{background:#fff7ed;border:1px solid #fdba74;padding:10px;border-radius:8px;margin-top:8px;font-size:13px}
+.live{color:#059669;font-weight:bold;font-size:12px}
+.hidden{display:none}
 </style>
 </head>
 <body>
 
+<!-- SCHOOL VIEW -->
 <div id="schoolView" style="display:none">
-  <div class="header"><h1>XINTIMANI GROUP</h1><p>📦 TRACK YOUR ORDER</p></div>
+  <div class="header"><h1>XINTIMANI GROUP</h1><p>📦 TRACK YOUR ORDER - LIVE</p><span class="live">● LIVE</span></div>
   <div id="schoolOrder"></div>
-  <p style="text-align:center;font-size:13px;color:#64748b">Mr Vusi Chauke - 078 023 3263<br>Building Solutions. Empowering Communities.</p>
+  <p style="text-align:center;font-size:13px;color:#64748b">Mr Vusi Chauke - 078 023 3263</p>
 </div>
 
+<!-- STAFF VIEW -->
 <div id="adminView">
-<div class="header"><h1>XINTIMANI GROUP</h1><p>🚚 TRANSPORT v2 - TRACK + SCHOOL LINK</p></div>
+<div class="header"><h1>XINTIMANI GROUP</h1><p>🚚 TRANSPORT v4 - AUTH + STORAGE</p><span class="live">● LIVE SYNC ON</span></div>
 
-<div class="card">
-  <b>👤 Who are you?</b>
-  <input id="userName" placeholder="Your Name - e.g. Mr Vusi Chauke">
-  <select id="userRole">
-    <option value="ADMIN">ADMIN - Mr Vusi Chauke</option>
-    <option value="TRANSPORT_COORDINATOR">TRANSPORT COORDINATOR</option>
-    <option value="DRIVER">DRIVER</option>
-  </select>
-  <input id="driverName" placeholder="Driver Name (if DRIVER)">
-  <button class="btn-blue" onclick="saveUser()">Save My Role ✅</button>
-  <p class="meta" id="whoAmI"></p>
+<!-- LOGIN -->
+<div class="card" id="loginCard">
+  <b>🔐 Staff Login</b>
+  <input id="loginEmail" placeholder="Email - e.g. vusi@xintimanigroup.co.za">
+  <input id="loginPass" type="password" placeholder="Password">
+  <button class="btn-blue" onclick="login()">Login ✅</button>
+  <p class="meta">Admin: vusi@xintimanigroup.co.za<br>Coordinator: coordinator@xintimanigroup.co.za<br>Driver: driver1@xintimanigroup.co.za<br><br>School? Don't login - use your tracking link.</p>
 </div>
 
-<div class="card">
+<div class="card hidden" id="userCard">
+  <p class="meta" id="whoAmI"></p>
+  <button class="btn-red" onclick="logout()">Logout</button>
+</div>
+
+<!-- NEW ORDER - Only if logged in -->
+<div class="card hidden" id="newOrderCard">
   <b>➕ New Transport Order</b>
   <input id="school" placeholder="School / Customer Name">
   <input id="emis" placeholder="EMIS / Order Ref">
@@ -67,165 +73,240 @@ canvas{border:2px dashed #0a1f4d;border-radius:8px;width:100%;background:white;t
   <button onclick="setFilter('ON_THE_WAY',this)">On Way</button>
   <button onclick="setFilter('DELIVERED',this)">Done</button>
 </div>
-<div id="orders"></div>
+<div id="orders"><p style="text-align:center;padding:20px">Please login to manage orders.<br>School? Open your tracking link.</p></div>
 </div>
 
-<script>
-// --- CHECK IF SCHOOL VIEW LINK ---
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, addDoc, doc, updateDoc, onSnapshot, query, orderBy, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+// ===== PASTE YOUR FIREBASE CONFIG =====
+const firebaseConfig = {
+  apiKey: "PASTE_YOUR_API_KEY",
+  authDomain: "PASTE_YOUR_PROJECT.firebaseapp.com",
+  projectId: "PASTE_YOUR_PROJECT_ID",
+  storageBucket: "PASTE_YOUR_PROJECT.appspot.com",
+  messagingSenderId: "PASTE_YOUR_SENDER_ID",
+  appId: "PASTE_YOUR_APP_ID"
+};
+// ======================================
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+const storage = getStorage(app);
+const ordersCol = collection(db, "orders");
+
 const params = new URLSearchParams(location.search);
 const schoolId = params.get("order");
-let orders = JSON.parse(localStorage.getItem("xintimani_transport_orders")||"[]");
-let filter="ALL";
-let user = JSON.parse(localStorage.getItem("xintimani_transport_user")||"{}");
+let orders = [];
+let filter = "ALL";
+let currentUser = null; // {uid, email, name, role, driverName}
 let sigCanvas, sigCtx, drawing=false;
 
-function saveUser(){
-  user={name:document.getElementById("userName").value||"Mr Vusi Chauke", role:document.getElementById("userRole").value, driver:document.getElementById("driverName").value};
-  localStorage.setItem("xintimani_transport_user", JSON.stringify(user));
-  showWho(); alert("Role saved: "+user.role);
-}
-function showWho(){ if(user.name) document.getElementById("whoAmI").innerText="Logged in: "+user.name+" ("+user.role+")"+(user.driver?" | Driver: "+user.driver:""); }
-function canManage(){ return ["ADMIN","TRANSPORT_COORDINATOR"].includes(user.role); }
-function canDrive(){ return ["ADMIN","TRANSPORT_COORDINATOR","DRIVER"].includes(user.role); }
-function save(){ localStorage.setItem("xintimani_transport_orders", JSON.stringify(orders)); }
+// --- AUTH ---
+window.login = async () => {
+  try {
+    const email = document.getElementById("loginEmail").value;
+    const pass = document.getElementById("loginPass").value;
+    const cred = await signInWithEmailAndPassword(auth, email, pass);
+    // Load role from /staff/{uid}
+    const staffSnap = await getDoc(doc(db, "staff", cred.user.uid));
+    if(staffSnap.exists()){
+      currentUser = {uid: cred.user.uid, email, ...staffSnap.data()};
+    } else {
+      // Fallback: infer from email
+      currentUser = {uid: cred.user.uid, email, name: email, role: email.includes("driver") ? "DRIVER" : email.includes("coordinator") ? "TRANSPORT_COORDINATOR" : "ADMIN"};
+    }
+    alert("Logged in: " + currentUser.name + " (" + currentUser.role + ")");
+  } catch(e){ alert("Login failed: " + e.message); }
+};
+window.logout = async () => { await signOut(auth); currentUser=null; location.reload(); };
 
-function createOrder(){
-  const o={id:"ORD-"+Date.now().toString().slice(-6),
-    school:document.getElementById("school").value, emis:document.getElementById("emis").value,
+onAuthStateChanged(auth, async (fbUser) => {
+  if(fbUser && !currentUser){
+    const snap = await getDoc(doc(db, "staff", fbUser.uid));
+    if(snap.exists()) currentUser = {uid: fbUser.uid, email: fbUser.email, ...snap.data()};
+    else currentUser = {uid: fbUser.uid, email: fbUser.email, name: fbUser.email, role: "ADMIN"};
+  }
+  if(currentUser){
+    document.getElementById("loginCard").classList.add("hidden");
+    document.getElementById("userCard").classList.remove("hidden");
+    document.getElementById("newOrderCard").classList.remove("hidden");
+    document.getElementById("whoAmI").innerText = `Logged in: ${currentUser.name} (${currentUser.role}) | ${currentUser.email}`;
+  }
+});
+
+function canManage(){ return currentUser && ["ADMIN","TRANSPORT_COORDINATOR"].includes(currentUser.role); }
+function canDrive(){ return currentUser && ["ADMIN","TRANSPORT_COORDINATOR","DRIVER"].includes(currentUser.role); }
+function requireLogin(){ if(!currentUser){ alert("Please login as Staff first."); return false; } return true; }
+
+// --- CREATE ---
+window.createOrder = async () => {
+  if(!requireLogin()) return;
+  const o={ school:document.getElementById("school").value, emis:document.getElementById("emis").value,
     phone:document.getElementById("phone").value, items:document.getElementById("items").value,
     address:document.getElementById("address").value, date:document.getElementById("date").value,
-    status:"PENDING", driver:"", podPhoto:"", signature:"", trackLink:"",
-    audit:[`${new Date().toLocaleString("en-ZA")} - Order created`]};
+    status:"PENDING", driver:"", podPhoto:"", podPhotoUrl:"", signature:"", trackLink:"",
+    createdAt: Date.now(),
+    audit:[`${new Date().toLocaleString("en-ZA")} - Order created by ${currentUser.name}`]};
   if(!o.school||!o.items){alert("Fill School + Items");return;}
-  orders.unshift(o); save(); render(); alert("Order created: "+o.id);
-}
+  const ref = await addDoc(ordersCol, o);
+  alert("Order created: " + ref.id);
+};
 
-function updateStatus(id, newStatus){
+// --- STATUS ---
+window.updateStatus = async (id, newStatus) => {
+  if(!requireLogin()) return;
   const o=orders.find(x=>x.id===id);
   const flow={ACKNOWLEDGED:["PENDING"], ON_THE_WAY:["ACKNOWLEDGED"], DELIVERED:["ON_THE_WAY"]};
   if(!flow[newStatus].includes(o.status)){alert("Cannot do that yet. Current: "+o.status);return;}
   if(newStatus==="ACKNOWLEDGED" && !canManage()){alert("Only Admin / Coordinator can acknowledge.");return;}
   if((newStatus==="ON_THE_WAY"||newStatus==="DELIVERED") && !canDrive()){alert("Only Admin / Coordinator / Driver can do this.");return;}
-  if(newStatus==="ON_THE_WAY" && !o.driver){ o.driver=prompt("Driver Name?", user.driver||"")||user.driver||"Unassigned"; }
+  let driver=o.driver;
+  if(newStatus==="ON_THE_WAY" && !driver){ driver=prompt("Driver Name?", currentUser.driverName||"")||currentUser.driverName||"Unassigned"; }
   if(newStatus==="DELIVERED"){
-    if(!o.podPhoto && !confirm("No Proof Photo yet. Deliver without photo?")) return;
+    if(!o.podPhotoUrl && !confirm("No Proof Photo yet. Deliver without photo?")) return;
     if(!o.signature && !confirm("No Signature yet. Deliver without signature?")) return;
   }
   if(!confirm(`${newStatus.replaceAll("_"," ")} - Order ${id}?`)) return;
-  o.status=newStatus;
-  o.audit.push(`${new Date().toLocaleString("en-ZA")} - ${newStatus} by ${user.name||"Admin"} (${user.role||"ADMIN"})${o.driver?" | Driver: "+o.driver:""}`);
-  save(); render(); sendWhatsApp(o,newStatus);
-}
+  const audit=[...o.audit, `${new Date().toLocaleString("en-ZA")} - ${newStatus} by ${currentUser.name} (${currentUser.role})${driver?" | Driver: "+driver:""}`];
+  await updateDoc(doc(db,"orders",id), {status:newStatus, driver:driver||"", audit});
+  sendWhatsApp({...o, status:newStatus, driver}, newStatus);
+};
 
-// --- TRACK: Share Live Location ---
-function shareLocation(id){
+// --- TRACK LOCATION ---
+window.shareLocation = (id) => {
+  if(!requireLogin()) return;
   const o=orders.find(x=>x.id===id);
-  if(!navigator.geolocation){alert("Location not supported on this phone");return;}
-  navigator.geolocation.getCurrentPosition(pos=>{
+  if(!navigator.geolocation){alert("Location not supported");return;}
+  navigator.geolocation.getCurrentPosition(async pos=>{
     const link=`https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
-    o.trackLink=link; o.audit.push(`${new Date().toLocaleString("en-ZA")} - Location shared by ${user.name} - ${link}`);
-    save(); render();
+    const audit=[...o.audit, `${new Date().toLocaleString("en-ZA")} - Location shared by ${currentUser.name} - ${link}`];
+    await updateDoc(doc(db,"orders",id), {trackLink:link, audit});
     const phone=(o.phone||"").replace(/\D/g,"").replace(/^0/,"27");
-    const msg=`🚚 *LIVE TRACKING - XINTIMANI GROUP*%0A%0AOrder: ${o.id}%0ASchool: ${o.school}%0ADriver: ${o.driver}%0A%0A📍 Track driver live here:%0A${encodeURIComponent(link)}%0A%0ADriver is on the way.`;
+    const msg=`🚚 *LIVE TRACKING - XINTIMANI GROUP*%0A%0AOrder: ${o.id}%0ASchool: ${o.school}%0ADriver: ${o.driver}%0A%0A📍 Track driver live here:%0A${encodeURIComponent(link)}`;
     if(phone) window.open(`https://wa.me/${phone}?text=${msg}`,"_blank");
-    else alert("Location link: "+link);
   },()=>alert("Please allow location permission"));
-}
+};
 
-// --- TRACK: Proof of Delivery Photo ---
-function takePhoto(id){
+// --- STORAGE: Proof Photo to Firebase Storage ---
+window.takePhoto = (id) => {
+  if(!requireLogin()) return;
   const input=document.createElement("input"); input.type="file"; input.accept="image/*"; input.capture="environment";
-  input.onchange=e=>{
-    const file=e.target.files[0]; const reader=new FileReader();
-    reader.onload=()=>{ const o=orders.find(x=>x.id===id); o.podPhoto=reader.result; o.audit.push(`${new Date().toLocaleString("en-ZA")} - Proof Photo added by ${user.name}`); save(); render(); alert("Photo saved ✅"); };
-    reader.readAsDataURL(file);
+  input.onchange=async e=>{
+    const file=e.target.files[0];
+    if(!file) return;
+    if(file.size > 5*1024*1024){ alert("Photo too big - max 5MB. Take smaller photo."); return; }
+    alert("Uploading photo to Storage... Please wait");
+    try{
+      const storageRef = ref(storage, `proof/${id}_${Date.now()}_${file.name}`);
+      await uploadBytes(storageRef, file);
+      const url = await getDownloadURL(storageRef);
+      const o=orders.find(x=>x.id===id);
+      const audit=[...o.audit, `${new Date().toLocaleString("en-ZA")} - Proof Photo uploaded to Storage by ${currentUser.name}`];
+      await updateDoc(doc(db,"orders",id), {podPhotoUrl:url, audit});
+      alert("Photo saved to Firebase Storage ✅");
+    }catch(err){ alert("Upload failed: "+err.message); }
   }; input.click();
-}
+};
 
-// --- TRACK: Signature ---
-function openSignature(id){
+// --- SIGNATURE ---
+window.openSignature = (id) => {
+  if(!requireLogin()) return;
   document.getElementById("sigBox_"+id).style.display="block";
   sigCanvas=document.getElementById("sigCanvas_"+id);
   sigCtx=sigCanvas.getContext("2d"); sigCtx.lineWidth=2; sigCtx.strokeStyle="#0a1f4d";
-  sigCanvas.addEventListener("touchstart",e=>{drawing=true; const r=sigCanvas.getBoundingClientRect(); sigCtx.beginPath(); sigCtx.moveTo(e.touches[0].clientX-r.left, e.touches[0].clientY-r.top); e.preventDefault();});
-  sigCanvas.addEventListener("touchmove",e=>{if(!drawing)return; const r=sigCanvas.getBoundingRect(); sigCtx.lineTo(e.touches[0].clientX-r.left, e.touches[0].clientY-r.top); sigCtx.stroke(); e.preventDefault();});
+  const getPos=(e)=>{ const r=sigCanvas.getBoundingClientRect(); const t=e.touches?e.touches[0]:e; return {x:t.clientX-r.left, y:t.clientY-r.top}; };
+  sigCanvas.addEventListener("touchstart",e=>{drawing=true; const p=getPos(e); sigCtx.beginPath(); sigCtx.moveTo(p.x,p.y); e.preventDefault();});
+  sigCanvas.addEventListener("touchmove",e=>{if(!drawing)return; const p=getPos(e); sigCtx.lineTo(p.x,p.y); sigCtx.stroke(); e.preventDefault();});
   sigCanvas.addEventListener("touchend",()=>drawing=false);
-  sigCanvas.addEventListener("mousedown",e=>{drawing=true; const r=sigCanvas.getBoundingClientRect(); sigCtx.beginPath(); sigCtx.moveTo(e.clientX-r.left, e.clientY-r.top);});
-  sigCanvas.addEventListener("mousemove",e=>{if(!drawing)return; const r=sigCanvas.getBoundingClientRect(); sigCtx.lineTo(e.clientX-r.left, e.clientY-r.top); sigCtx.stroke();});
+  sigCanvas.addEventListener("mousedown",e=>{drawing=true; const p=getPos(e); sigCtx.beginPath(); sigCtx.moveTo(p.x,p.y);});
+  sigCanvas.addEventListener("mousemove",e=>{if(!drawing)return; const p=getPos(e); sigCtx.lineTo(p.x,p.y); sigCtx.stroke();});
   sigCanvas.addEventListener("mouseup",()=>drawing=false);
-}
-function saveSignature(id){
+};
+window.saveSignature = async (id) => {
   const o=orders.find(x=>x.id===id);
-  o.signature=sigCanvas.toDataURL(); o.audit.push(`${new Date().toLocaleString("en-ZA")} - Signature captured`);
-  save(); render(); alert("Signature saved ✅");
-}
-function clearSignature(id){ sigCtx.clearRect(0,0,sigCanvas.width,sigCanvas.height); }
+  const audit=[...o.audit, `${new Date().toLocaleString("en-ZA")} - Signature captured by ${currentUser.name}`];
+  await updateDoc(doc(db,"orders",id), {signature:sigCanvas.toDataURL(), audit});
+  alert("Signature saved ✅");
+};
+window.clearSignature = () => { sigCtx.clearRect(0,0,sigCanvas.width,sigCanvas.height); };
 
-// --- LINK: Copy School View Link ---
-function copySchoolLink(id){
+// --- SCHOOL LINK ---
+window.copySchoolLink = (id) => {
   const o=orders.find(x=>x.id===id);
   const base=location.href.split("?")[0];
   const link=`${base}?order=${id}`;
   navigator.clipboard.writeText(link).then(()=>{
     const phone=(o.phone||"").replace(/\D/g,"").replace(/^0/,"27");
-    const msg=`📦 *TRACK YOUR ORDER - XINTIMANI GROUP*%0A%0AOrder: ${o.id}%0ASchool: ${o.school}%0A%0A👉 Track your order live here (no login needed):%0A${encodeURIComponent(link)}%0A%0AYou will see: Acknowledged / On The Way / Delivered + Proof Photo + Signature.%0A%0AMr Vusi Chauke - 078 023 3263`;
+    const msg=`📦 *TRACK YOUR ORDER - XINTIMANI GROUP*%0A%0AOrder: ${o.id}%0ASchool: ${o.school}%0A%0A👉 Track live here (no login):%0A${encodeURIComponent(link)}%0A%0AMr Vusi Chauke - 078 023 3263`;
     if(phone && confirm("Link copied! Send via WhatsApp to school now?")) window.open(`https://wa.me/${phone}?text=${msg}`,"_blank");
     else alert("Link copied: "+link);
   });
-}
+};
 
 function sendWhatsApp(o,status){
   const phone=(o.phone||"").replace(/\D/g,"").replace(/^0/,"27"); if(!phone) return;
   let msg="";
-  if(status==="ACKNOWLEDGED") msg=`✅ *ORDER ACKNOWLEDGED - XINTIMANI GROUP*%0A%0AOrder: ${o.id}%0ASchool: ${o.school}%0AItems: ${o.items}%0AStatus: ACKNOWLEDGED%0ABy: ${user.name} (${user.role})%0A%0AWe have received your order and are preparing it.`;
-  if(status==="ON_THE_WAY") msg=`🚚 *ORDER ON THE WAY - XINTIMANI GROUP*%0A%0AOrder: ${o.id}%0ASchool: ${o.school}%0ADriver: ${o.driver}%0AStatus: ON THE WAY%0A%0AYour order is on its way to ${o.address}.`;
-  if(status==="DELIVERED") msg=`✅ *ORDER DELIVERED - XINTIMANI GROUP*%0A%0AOrder: ${o.id}%0ASchool: ${o.school}%0ADriver: ${o.driver}%0AStatus: DELIVERED%0A%0AThank you for trusting Xintimani Group.%0AMr Vusi Chauke - 078 023 3263`;
+  if(status==="ACKNOWLEDGED") msg=`✅ *ORDER ACKNOWLEDGED - XINTIMANI GROUP*%0A%0AOrder: ${o.id}%0ASchool: ${o.school}%0AItems: ${o.items}%0AStatus: ACKNOWLEDGED%0ABy: ${currentUser.name} (${currentUser.role})`;
+  if(status==="ON_THE_WAY") msg=`🚚 *ORDER ON THE WAY - XINTIMANI GROUP*%0A%0AOrder: ${o.id}%0ASchool: ${o.school}%0ADriver: ${o.driver}%0AStatus: ON THE WAY`;
+  if(status==="DELIVERED") msg=`✅ *ORDER DELIVERED - XINTIMANI GROUP*%0A%0AOrder: ${o.id}%0ASchool: ${o.school}%0ADriver: ${o.driver}%0AStatus: DELIVERED%0A%0AThank you! Mr Vusi Chauke - 078 023 3263`;
   window.open(`https://wa.me/${phone}?text=${msg}`,"_blank");
 }
 
-function setFilter(f,el){filter=f; document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active")); el.classList.add("active"); render();}
+window.setFilter = (f,el)=>{ filter=f; document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active")); el.classList.add("active"); render(); };
+
 function render(){
   const list=orders.filter(o=>filter==="ALL"||o.status===filter);
   document.getElementById("orders").innerHTML=list.map(o=>`
   <div class="card">
     <b>${o.school}</b> <span class="badge ${o.status}">${o.status.replaceAll("_"," ")}</span>
-    <p class="meta">Order: ${o.id} | EMIS: ${o.emis||"-"} | Date: ${o.date||"-"}<br>Items: ${o.items}<br>Address: ${o.address||"-"}<br>Phone: ${o.phone||"-"} | Driver: ${o.driver||"Not assigned"}</p>
+    <p class="meta">Order: ${o.id}<br>EMIS: ${o.emis||"-"} | Date: ${o.date||"-"}<br>Items: ${o.items}<br>Address: ${o.address||"-"}<br>Phone: ${o.phone||"-"} | Driver: ${o.driver||"Not assigned"}</p>
     ${o.trackLink?`<div class="track-box">📍 Last Location: <a href="${o.trackLink}" target="_blank">Open Google Maps</a></div>`:""}
-    ${o.podPhoto?`<img class="pod" src="${o.podPhoto}"><p style="font-size:12px;color:#059669">✅ Proof Photo Attached</p>`:""}
-    ${o.signature?`<img class="pod" src="${o.signature}" style="border:1px solid #ddd"><p style="font-size:12px;color:#059669">✍️ Signature Captured</p>`:""}
-    ${o.status==="PENDING"?`<button class="btn-blue" onclick="updateStatus('${o.id}','ACKNOWLEDGED')">✅ Acknowledge Order Received</button>`:""}
-    ${o.status==="ACKNOWLEDGED"?`<button class="btn-orange" onclick="updateStatus('${o.id}','ON_THE_WAY')">🚚 Mark On The Way + Assign Driver</button>`:""}
-    ${o.status==="ON_THE_WAY"?`<button class="btn-green" onclick="updateStatus('${o.id}','DELIVERED')">✅ Mark Delivered</button>`:""}
-    <button class="btn-purple" onclick="shareLocation('${o.id}')">📍 Share Live Location With School</button>
-    <button class="btn-black" onclick="takePhoto('${o.id}')">📸 Take Proof of Delivery Photo</button>
+    ${o.podPhotoUrl?`<img class="pod" src="${o.podPhotoUrl}"><p style="font-size:12px;color:#059669">✅ Proof Photo - Firebase Storage</p>`:""}
+    ${o.signature?`<img class="pod" src="${o.signature}"><p style="font-size:12px;color:#059669">✍️ Signature Captured</p>`:""}
+    ${o.status==="PENDING" && currentUser?`<button class="btn-blue" onclick="updateStatus('${o.id}','ACKNOWLEDGED')">✅ Acknowledge Order Received</button>`:""}
+    ${o.status==="ACKNOWLEDGED" && currentUser?`<button class="btn-orange" onclick="updateStatus('${o.id}','ON_THE_WAY')">🚚 Mark On The Way + Assign Driver</button>`:""}
+    ${o.status==="ON_THE_WAY" && currentUser?`<button class="btn-green" onclick="updateStatus('${o.id}','DELIVERED')">✅ Mark Delivered</button>`:""}
+    ${currentUser?`<button class="btn-purple" onclick="shareLocation('${o.id}')">📍 Share Live Location</button>
+    <button class="btn-black" onclick="takePhoto('${o.id}')">📸 Take Proof Photo (Storage - up to 5MB)</button>
     <button class="btn-grey" onclick="openSignature('${o.id}')">✍️ Get School Signature</button>
     <div id="sigBox_${o.id}" style="display:none;margin-top:8px">
       <canvas id="sigCanvas_${o.id}" width="300" height="120"></canvas>
       <button class="btn-green" onclick="saveSignature('${o.id}')">Save Signature ✅</button>
-      <button class="btn-grey" onclick="clearSignature('${o.id}')">Clear</button>
-    </div>
+      <button class="btn-grey" onclick="clearSignature()">Clear</button>
+    </div>`:""}
     <button class="btn-blue" onclick="copySchoolLink('${o.id}')">🔗 Copy School Tracking Link + Send WhatsApp</button>
-    <div class="audit">${o.audit.join("\n")}</div>
+    <div class="audit">${(o.audit||[]).join("\n")}</div>
   </div>`).join("")||"<p style='text-align:center;padding:20px'>No orders in this filter.</p>";
 }
 
-// --- SCHOOL VIEW MODE ---
+// --- LIVE LISTENERS ---
 if(schoolId){
   document.getElementById("adminView").style.display="none";
   document.getElementById("schoolView").style.display="block";
-  const o=orders.find(x=>x.id===schoolId);
-  document.getElementById("schoolOrder").innerHTML = o ? `
+  onSnapshot(doc(db,"orders",schoolId), snap=>{
+    const o=snap.exists()?{id:snap.id, ...snap.data()}:null;
+    document.getElementById("schoolOrder").innerHTML = o ? `
     <div class="card">
       <b>${o.school}</b> <span class="badge ${o.status}">${o.status.replaceAll("_"," ")}</span>
       <p class="meta">Order: ${o.id}<br>Items: ${o.items}<br>Address: ${o.address||"-"}<br>Driver: ${o.driver||"Not assigned yet"}</p>
-      <p style="font-size:14px"><b>Status Timeline:</b><br>
-      ${o.status==="PENDING"?"⏳ Pending - Waiting for acknowledgement":o.status==="ACKNOWLEDGED"?"✅ Acknowledged - We received your order":o.status==="ON_THE_WAY"?"🚚 On The Way - Driver is coming": "✅ Delivered - Thank you!"}</p>
-      ${o.trackLink?`<div class="track-box">📍 <a href="${o.trackLink}" target="_blank">Track Driver Live on Google Maps →</a></div>`:""}
-      ${o.podPhoto?`<img class="pod" src="${o.podPhoto}"><p>✅ Proof Photo</p>`:""}
+      <p><b>Status:</b> ${o.status==="PENDING"?"⏳ Pending":o.status==="ACKNOWLEDGED"?"✅ Acknowledged":o.status==="ON_THE_WAY"?"🚚 On The Way":"✅ Delivered"}</p>
+      ${o.trackLink?`<div class="track-box">📍 <a href="${o.trackLink}" target="_blank">Track Driver Live →</a></div>`:""}
+      ${o.podPhotoUrl?`<img class="pod" src="${o.podPhotoUrl}"><p>✅ Proof Photo</p>`:""}
       ${o.signature?`<img class="pod" src="${o.signature}"><p>✍️ Signed Delivery</p>`:""}
-      <div class="audit">${o.audit.join("\n")}</div>
-    </div>` : `<div class="card"><b>Order not found</b><p>This link is for a specific phone. Ask coordinator to resend link.</p></div>`;
-} else { showWho(); render(); }
+      <div class="audit">${(o.audit||[]).join("\n")}</div>
+    </div>` : `<div class="card"><b>Order not found</b><p>Ask coordinator to resend link.</p></div>`;
+  });
+} else {
+  onSnapshot(query(ordersCol, orderBy("createdAt","desc")), snap=>{
+    orders=snap.docs.map(d=>({id:d.id, ...d.data()}));
+    render();
+  });
+}
 </script>
 </body>
 </html>
