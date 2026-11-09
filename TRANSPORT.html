@@ -3,34 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Xintimani Transport - Coordinator App</title>
+<title>Xintimani Transport v2 - Track + School Link</title>
 <style>
-  *{box-sizing:border-box;font-family:Arial,sans-serif}
-  body{margin:0;background:#f1f5f9;padding:12px}
-  .header{background:#0a1f4d;color:white;padding:16px;border-radius:12px;text-align:center}
-  .header h1{margin:0;font-size:20px}.header p{margin:4px 0;color:#d4af37;font-weight:bold}
-  .card{background:white;padding:14px;border-radius:12px;margin-top:12px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
-  input,select,textarea{width:100%;padding:10px;margin:6px 0;border:1px solid #cbd5e1;border-radius:8px}
-  button{width:100%;padding:12px;border:0;border-radius:8px;font-weight:bold;margin-top:6px;cursor:pointer}
-  .btn-green{background:#059669;color:white}.btn-blue{background:#2563eb;color:white}
-  .btn-orange{background:#ea580c;color:white}.btn-grey{background:#64748b;color:white}
-  .badge{display:inline-block;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:bold;color:white}
-  .PENDING{background:#f59e0b}.ACKNOWLEDGED{background:#2563eb}
-  .ON_THE_WAY{background:#ea580c}.DELIVERED{background:#059669}
-  .meta{font-size:13px;color:#475569}.audit{font-size:12px;background:#f8fafc;padding:8px;border-radius:8px;margin-top:8px;white-space:pre-wrap}
-  .tabs{display:flex;gap:6px;margin-top:12px}.tabs button{flex:1;background:#e2e8f0;color:#0a1f4d}
-  .tabs button.active{background:#0a1f4d;color:white}
+*{box-sizing:border-box;font-family:Arial,sans-serif}
+body{margin:0;background:#f1f5f9;padding:12px}
+.header{background:#0a1f4d;color:white;padding:16px;border-radius:12px;text-align:center}
+.header h1{margin:0;font-size:20px}.header p{margin:4px 0;color:#d4af37;font-weight:bold}
+.card{background:white;padding:14px;border-radius:12px;margin-top:12px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+input,select,textarea{width:100%;padding:10px;margin:6px 0;border:1px solid #cbd5e1;border-radius:8px}
+button{width:100%;padding:12px;border:0;border-radius:8px;font-weight:bold;margin-top:6px;cursor:pointer}
+.btn-green{background:#059669;color:white}.btn-blue{background:#2563eb;color:white}
+.btn-orange{background:#ea580c;color:white}.btn-purple{background:#7c3aed;color:white}
+.btn-grey{background:#64748b;color:white}.btn-black{background:#0a1f4d;color:white}
+.badge{display:inline-block;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:bold;color:white}
+.PENDING{background:#f59e0b}.ACKNOWLEDGED{background:#2563eb}.ON_THE_WAY{background:#ea580c}.DELIVERED{background:#059669}
+.meta{font-size:13px;color:#475569}.audit{font-size:12px;background:#f8fafc;padding:8px;border-radius:8px;margin-top:8px;white-space:pre-wrap}
+.tabs{display:flex;gap:6px;margin-top:12px}.tabs button{flex:1;background:#e2e8f0;color:#0a1f4d}
+.tabs button.active{background:#0a1f4d;color:white}
+img.pod{width:100%;border-radius:8px;margin-top:8px}
+canvas{border:2px dashed #0a1f4d;border-radius:8px;width:100%;background:white;touch-action:none}
+.track-box{background:#fff7ed;border:1px solid #fdba74;padding:10px;border-radius:8px;margin-top:8px;font-size:13px}
 </style>
 </head>
 <body>
 
-<div class="header">
-  <h1>XINTIMANI GROUP</h1>
-  <p>🚚 TRANSPORT COORDINATOR APP</p>
-  <span style="font-size:13px">Building Solutions. Empowering Communities.</span>
+<div id="schoolView" style="display:none">
+  <div class="header"><h1>XINTIMANI GROUP</h1><p>📦 TRACK YOUR ORDER</p></div>
+  <div id="schoolOrder"></div>
+  <p style="text-align:center;font-size:13px;color:#64748b">Mr Vusi Chauke - 078 023 3263<br>Building Solutions. Empowering Communities.</p>
 </div>
 
-<!-- LOGIN / ROLE -->
+<div id="adminView">
+<div class="header"><h1>XINTIMANI GROUP</h1><p>🚚 TRANSPORT v2 - TRACK + SCHOOL LINK</p></div>
+
 <div class="card">
   <b>👤 Who are you?</b>
   <input id="userName" placeholder="Your Name - e.g. Mr Vusi Chauke">
@@ -39,24 +44,22 @@
     <option value="TRANSPORT_COORDINATOR">TRANSPORT COORDINATOR</option>
     <option value="DRIVER">DRIVER</option>
   </select>
-  <input id="driverName" placeholder="Driver Name (if DRIVER role) - e.g. Thabo">
+  <input id="driverName" placeholder="Driver Name (if DRIVER)">
   <button class="btn-blue" onclick="saveUser()">Save My Role ✅</button>
   <p class="meta" id="whoAmI"></p>
 </div>
 
-<!-- NEW ORDER -->
 <div class="card">
   <b>➕ New Transport Order</b>
   <input id="school" placeholder="School / Customer Name">
   <input id="emis" placeholder="EMIS / Order Ref">
   <input id="phone" placeholder="School Phone - e.g. 0780233263">
-  <textarea id="items" placeholder="Items - e.g. Grade 10 Textbooks x 50 / Lab Kit x 10"></textarea>
+  <textarea id="items" placeholder="Items - e.g. Grade 10 Textbooks x 50"></textarea>
   <input id="address" placeholder="Delivery Address">
   <input id="date" type="date">
   <button class="btn-green" onclick="createOrder()">Create Order 📦</button>
 </div>
 
-<!-- FILTER -->
 <div class="tabs">
   <button onclick="setFilter('ALL',this)" class="active">All</button>
   <button onclick="setFilter('PENDING',this)">Pending</button>
@@ -64,93 +67,165 @@
   <button onclick="setFilter('ON_THE_WAY',this)">On Way</button>
   <button onclick="setFilter('DELIVERED',this)">Done</button>
 </div>
-
 <div id="orders"></div>
+</div>
 
 <script>
+// --- CHECK IF SCHOOL VIEW LINK ---
+const params = new URLSearchParams(location.search);
+const schoolId = params.get("order");
 let orders = JSON.parse(localStorage.getItem("xintimani_transport_orders")||"[]");
-let filter = "ALL";
+let filter="ALL";
 let user = JSON.parse(localStorage.getItem("xintimani_transport_user")||"{}");
+let sigCanvas, sigCtx, drawing=false;
 
 function saveUser(){
-  user = {name: document.getElementById("userName").value || "Mr Vusi Chauke",
-          role: document.getElementById("userRole").value,
-          driver: document.getElementById("driverName").value};
+  user={name:document.getElementById("userName").value||"Mr Vusi Chauke", role:document.getElementById("userRole").value, driver:document.getElementById("driverName").value};
   localStorage.setItem("xintimani_transport_user", JSON.stringify(user));
-  showWho(); alert("Role saved: " + user.role);
+  showWho(); alert("Role saved: "+user.role);
 }
-function showWho(){
-  if(user.name) document.getElementById("whoAmI").innerText = "Logged in: " + user.name + " (" + user.role + ")" + (user.driver ? " | Driver: "+user.driver : "");
-}
+function showWho(){ if(user.name) document.getElementById("whoAmI").innerText="Logged in: "+user.name+" ("+user.role+")"+(user.driver?" | Driver: "+user.driver:""); }
 function canManage(){ return ["ADMIN","TRANSPORT_COORDINATOR"].includes(user.role); }
 function canDrive(){ return ["ADMIN","TRANSPORT_COORDINATOR","DRIVER"].includes(user.role); }
+function save(){ localStorage.setItem("xintimani_transport_orders", JSON.stringify(orders)); }
 
 function createOrder(){
-  const o = {
-    id: "ORD-" + Date.now().toString().slice(-6),
-    school: document.getElementById("school").value,
-    emis: document.getElementById("emis").value,
-    phone: document.getElementById("phone").value,
-    items: document.getElementById("items").value,
-    address: document.getElementById("address").value,
-    date: document.getElementById("date").value,
-    status: "PENDING", driver: "", audit: [`${new Date().toLocaleString("en-ZA")} - Order created`]
-  };
-  if(!o.school || !o.items){ alert("Fill School + Items"); return; }
-  orders.unshift(o); save(); render();
-  alert("Order created: " + o.id);
+  const o={id:"ORD-"+Date.now().toString().slice(-6),
+    school:document.getElementById("school").value, emis:document.getElementById("emis").value,
+    phone:document.getElementById("phone").value, items:document.getElementById("items").value,
+    address:document.getElementById("address").value, date:document.getElementById("date").value,
+    status:"PENDING", driver:"", podPhoto:"", signature:"", trackLink:"",
+    audit:[`${new Date().toLocaleString("en-ZA")} - Order created`]};
+  if(!o.school||!o.items){alert("Fill School + Items");return;}
+  orders.unshift(o); save(); render(); alert("Order created: "+o.id);
 }
 
 function updateStatus(id, newStatus){
-  const o = orders.find(x=>x.id===id);
-  // Enforce flow
-  const flow = {ACKNOWLEDGED:["PENDING"], ON_THE_WAY:["ACKNOWLEDGED"], DELIVERED:["ON_THE_WAY"]};
-  if(!flow[newStatus].includes(o.status)){ alert("Cannot do that yet. Current: " + o.status); return; }
-  if(newStatus==="ACKNOWLEDGED" && !canManage()){ alert("Only Admin / Transport Coordinator can acknowledge."); return; }
-  if((newStatus==="ON_THE_WAY"||newStatus==="DELIVERED") && !canDrive()){ alert("Only Admin / Coordinator / Driver can do this."); return; }
-
-  let driver = o.driver;
-  if(newStatus==="ON_THE_WAY" && !driver){
-    driver = prompt("Driver Name?", user.driver || "") || user.driver || "Unassigned";
-    o.driver = driver;
+  const o=orders.find(x=>x.id===id);
+  const flow={ACKNOWLEDGED:["PENDING"], ON_THE_WAY:["ACKNOWLEDGED"], DELIVERED:["ON_THE_WAY"]};
+  if(!flow[newStatus].includes(o.status)){alert("Cannot do that yet. Current: "+o.status);return;}
+  if(newStatus==="ACKNOWLEDGED" && !canManage()){alert("Only Admin / Coordinator can acknowledge.");return;}
+  if((newStatus==="ON_THE_WAY"||newStatus==="DELIVERED") && !canDrive()){alert("Only Admin / Coordinator / Driver can do this.");return;}
+  if(newStatus==="ON_THE_WAY" && !o.driver){ o.driver=prompt("Driver Name?", user.driver||"")||user.driver||"Unassigned"; }
+  if(newStatus==="DELIVERED"){
+    if(!o.podPhoto && !confirm("No Proof Photo yet. Deliver without photo?")) return;
+    if(!o.signature && !confirm("No Signature yet. Deliver without signature?")) return;
   }
   if(!confirm(`${newStatus.replaceAll("_"," ")} - Order ${id}?`)) return;
-
-  o.status = newStatus;
-  o.audit.push(`${new Date().toLocaleString("en-ZA")} - ${newStatus} by ${user.name||"Admin"} (${user.role||"ADMIN"})${driver ? " | Driver: "+driver : ""}`);
-  save(); render();
-  sendWhatsApp(o, newStatus);
+  o.status=newStatus;
+  o.audit.push(`${new Date().toLocaleString("en-ZA")} - ${newStatus} by ${user.name||"Admin"} (${user.role||"ADMIN"})${o.driver?" | Driver: "+o.driver:""}`);
+  save(); render(); sendWhatsApp(o,newStatus);
 }
 
-function sendWhatsApp(o, status){
-  const phone = (o.phone||"").replace(/\D/g,"").replace(/^0/,"27");
-  if(!phone) return;
-  let msg = "";
-  if(status==="ACKNOWLEDGED") msg = `✅ *ORDER ACKNOWLEDGED - XINTIMANI GROUP*%0A%0AOrder: ${o.id}%0ASchool: ${o.school}%0AItems: ${o.items}%0AStatus: ACKNOWLEDGED%0ABy: ${user.name} (${user.role})%0A%0AWe have received your order and are preparing it.`;
-  if(status==="ON_THE_WAY") msg = `🚚 *ORDER ON THE WAY - XINTIMANI GROUP*%0A%0AOrder: ${o.id}%0ASchool: ${o.school}%0ADriver: ${o.driver}%0AStatus: ON THE WAY%0A%0AYour order is on its way to ${o.address}.`;
-  if(status==="DELIVERED") msg = `✅ *ORDER DELIVERED - XINTIMANI GROUP*%0A%0AOrder: ${o.id}%0ASchool: ${o.school}%0ADriver: ${o.driver}%0AStatus: DELIVERED%0A%0AThank you for trusting Xintimani Group.%0AMr Vusi Chauke - 078 023 3263`;
-  window.open(`https://wa.me/${phone}?text=${msg}`, "_blank");
+// --- TRACK: Share Live Location ---
+function shareLocation(id){
+  const o=orders.find(x=>x.id===id);
+  if(!navigator.geolocation){alert("Location not supported on this phone");return;}
+  navigator.geolocation.getCurrentPosition(pos=>{
+    const link=`https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
+    o.trackLink=link; o.audit.push(`${new Date().toLocaleString("en-ZA")} - Location shared by ${user.name} - ${link}`);
+    save(); render();
+    const phone=(o.phone||"").replace(/\D/g,"").replace(/^0/,"27");
+    const msg=`🚚 *LIVE TRACKING - XINTIMANI GROUP*%0A%0AOrder: ${o.id}%0ASchool: ${o.school}%0ADriver: ${o.driver}%0A%0A📍 Track driver live here:%0A${encodeURIComponent(link)}%0A%0ADriver is on the way.`;
+    if(phone) window.open(`https://wa.me/${phone}?text=${msg}`,"_blank");
+    else alert("Location link: "+link);
+  },()=>alert("Please allow location permission"));
 }
 
-function setFilter(f, el){ filter=f; document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active")); el.classList.add("active"); render(); }
-function save(){ localStorage.setItem("xintimani_transport_orders", JSON.stringify(orders)); }
+// --- TRACK: Proof of Delivery Photo ---
+function takePhoto(id){
+  const input=document.createElement("input"); input.type="file"; input.accept="image/*"; input.capture="environment";
+  input.onchange=e=>{
+    const file=e.target.files[0]; const reader=new FileReader();
+    reader.onload=()=>{ const o=orders.find(x=>x.id===id); o.podPhoto=reader.result; o.audit.push(`${new Date().toLocaleString("en-ZA")} - Proof Photo added by ${user.name}`); save(); render(); alert("Photo saved ✅"); };
+    reader.readAsDataURL(file);
+  }; input.click();
+}
 
+// --- TRACK: Signature ---
+function openSignature(id){
+  document.getElementById("sigBox_"+id).style.display="block";
+  sigCanvas=document.getElementById("sigCanvas_"+id);
+  sigCtx=sigCanvas.getContext("2d"); sigCtx.lineWidth=2; sigCtx.strokeStyle="#0a1f4d";
+  sigCanvas.addEventListener("touchstart",e=>{drawing=true; const r=sigCanvas.getBoundingClientRect(); sigCtx.beginPath(); sigCtx.moveTo(e.touches[0].clientX-r.left, e.touches[0].clientY-r.top); e.preventDefault();});
+  sigCanvas.addEventListener("touchmove",e=>{if(!drawing)return; const r=sigCanvas.getBoundingRect(); sigCtx.lineTo(e.touches[0].clientX-r.left, e.touches[0].clientY-r.top); sigCtx.stroke(); e.preventDefault();});
+  sigCanvas.addEventListener("touchend",()=>drawing=false);
+  sigCanvas.addEventListener("mousedown",e=>{drawing=true; const r=sigCanvas.getBoundingClientRect(); sigCtx.beginPath(); sigCtx.moveTo(e.clientX-r.left, e.clientY-r.top);});
+  sigCanvas.addEventListener("mousemove",e=>{if(!drawing)return; const r=sigCanvas.getBoundingClientRect(); sigCtx.lineTo(e.clientX-r.left, e.clientY-r.top); sigCtx.stroke();});
+  sigCanvas.addEventListener("mouseup",()=>drawing=false);
+}
+function saveSignature(id){
+  const o=orders.find(x=>x.id===id);
+  o.signature=sigCanvas.toDataURL(); o.audit.push(`${new Date().toLocaleString("en-ZA")} - Signature captured`);
+  save(); render(); alert("Signature saved ✅");
+}
+function clearSignature(id){ sigCtx.clearRect(0,0,sigCanvas.width,sigCanvas.height); }
+
+// --- LINK: Copy School View Link ---
+function copySchoolLink(id){
+  const o=orders.find(x=>x.id===id);
+  const base=location.href.split("?")[0];
+  const link=`${base}?order=${id}`;
+  navigator.clipboard.writeText(link).then(()=>{
+    const phone=(o.phone||"").replace(/\D/g,"").replace(/^0/,"27");
+    const msg=`📦 *TRACK YOUR ORDER - XINTIMANI GROUP*%0A%0AOrder: ${o.id}%0ASchool: ${o.school}%0A%0A👉 Track your order live here (no login needed):%0A${encodeURIComponent(link)}%0A%0AYou will see: Acknowledged / On The Way / Delivered + Proof Photo + Signature.%0A%0AMr Vusi Chauke - 078 023 3263`;
+    if(phone && confirm("Link copied! Send via WhatsApp to school now?")) window.open(`https://wa.me/${phone}?text=${msg}`,"_blank");
+    else alert("Link copied: "+link);
+  });
+}
+
+function sendWhatsApp(o,status){
+  const phone=(o.phone||"").replace(/\D/g,"").replace(/^0/,"27"); if(!phone) return;
+  let msg="";
+  if(status==="ACKNOWLEDGED") msg=`✅ *ORDER ACKNOWLEDGED - XINTIMANI GROUP*%0A%0AOrder: ${o.id}%0ASchool: ${o.school}%0AItems: ${o.items}%0AStatus: ACKNOWLEDGED%0ABy: ${user.name} (${user.role})%0A%0AWe have received your order and are preparing it.`;
+  if(status==="ON_THE_WAY") msg=`🚚 *ORDER ON THE WAY - XINTIMANI GROUP*%0A%0AOrder: ${o.id}%0ASchool: ${o.school}%0ADriver: ${o.driver}%0AStatus: ON THE WAY%0A%0AYour order is on its way to ${o.address}.`;
+  if(status==="DELIVERED") msg=`✅ *ORDER DELIVERED - XINTIMANI GROUP*%0A%0AOrder: ${o.id}%0ASchool: ${o.school}%0ADriver: ${o.driver}%0AStatus: DELIVERED%0A%0AThank you for trusting Xintimani Group.%0AMr Vusi Chauke - 078 023 3263`;
+  window.open(`https://wa.me/${phone}?text=${msg}`,"_blank");
+}
+
+function setFilter(f,el){filter=f; document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active")); el.classList.add("active"); render();}
 function render(){
-  const list = orders.filter(o=> filter==="ALL" || o.status===filter);
-  document.getElementById("orders").innerHTML = list.map(o=>`
+  const list=orders.filter(o=>filter==="ALL"||o.status===filter);
+  document.getElementById("orders").innerHTML=list.map(o=>`
+  <div class="card">
+    <b>${o.school}</b> <span class="badge ${o.status}">${o.status.replaceAll("_"," ")}</span>
+    <p class="meta">Order: ${o.id} | EMIS: ${o.emis||"-"} | Date: ${o.date||"-"}<br>Items: ${o.items}<br>Address: ${o.address||"-"}<br>Phone: ${o.phone||"-"} | Driver: ${o.driver||"Not assigned"}</p>
+    ${o.trackLink?`<div class="track-box">📍 Last Location: <a href="${o.trackLink}" target="_blank">Open Google Maps</a></div>`:""}
+    ${o.podPhoto?`<img class="pod" src="${o.podPhoto}"><p style="font-size:12px;color:#059669">✅ Proof Photo Attached</p>`:""}
+    ${o.signature?`<img class="pod" src="${o.signature}" style="border:1px solid #ddd"><p style="font-size:12px;color:#059669">✍️ Signature Captured</p>`:""}
+    ${o.status==="PENDING"?`<button class="btn-blue" onclick="updateStatus('${o.id}','ACKNOWLEDGED')">✅ Acknowledge Order Received</button>`:""}
+    ${o.status==="ACKNOWLEDGED"?`<button class="btn-orange" onclick="updateStatus('${o.id}','ON_THE_WAY')">🚚 Mark On The Way + Assign Driver</button>`:""}
+    ${o.status==="ON_THE_WAY"?`<button class="btn-green" onclick="updateStatus('${o.id}','DELIVERED')">✅ Mark Delivered</button>`:""}
+    <button class="btn-purple" onclick="shareLocation('${o.id}')">📍 Share Live Location With School</button>
+    <button class="btn-black" onclick="takePhoto('${o.id}')">📸 Take Proof of Delivery Photo</button>
+    <button class="btn-grey" onclick="openSignature('${o.id}')">✍️ Get School Signature</button>
+    <div id="sigBox_${o.id}" style="display:none;margin-top:8px">
+      <canvas id="sigCanvas_${o.id}" width="300" height="120"></canvas>
+      <button class="btn-green" onclick="saveSignature('${o.id}')">Save Signature ✅</button>
+      <button class="btn-grey" onclick="clearSignature('${o.id}')">Clear</button>
+    </div>
+    <button class="btn-blue" onclick="copySchoolLink('${o.id}')">🔗 Copy School Tracking Link + Send WhatsApp</button>
+    <div class="audit">${o.audit.join("\n")}</div>
+  </div>`).join("")||"<p style='text-align:center;padding:20px'>No orders in this filter.</p>";
+}
+
+// --- SCHOOL VIEW MODE ---
+if(schoolId){
+  document.getElementById("adminView").style.display="none";
+  document.getElementById("schoolView").style.display="block";
+  const o=orders.find(x=>x.id===schoolId);
+  document.getElementById("schoolOrder").innerHTML = o ? `
     <div class="card">
       <b>${o.school}</b> <span class="badge ${o.status}">${o.status.replaceAll("_"," ")}</span>
-      <p class="meta">Order: ${o.id} | EMIS: ${o.emis||"-"} | Date: ${o.date||"-"}<br>
-      Items: ${o.items}<br>Address: ${o.address||"-"}<br>
-      Phone: ${o.phone||"-"} | Driver: ${o.driver||"Not assigned"}</p>
-      ${o.status==="PENDING" ? `<button class="btn-blue" onclick="updateStatus('${o.id}','ACKNOWLEDGED')">✅ Acknowledge Order Received</button>` : ""}
-      ${o.status==="ACKNOWLEDGED" ? `<button class="btn-orange" onclick="updateStatus('${o.id}','ON_THE_WAY')">🚚 Mark On The Way + Assign Driver</button>` : ""}
-      ${o.status==="ON_THE_WAY" ? `<button class="btn-green" onclick="updateStatus('${o.id}','DELIVERED')">✅ Mark Delivered</button>` : ""}
-      ${o.status==="DELIVERED" ? `<p style="color:#059669;font-weight:bold">✅ Delivered - Complete</p>` : ""}
+      <p class="meta">Order: ${o.id}<br>Items: ${o.items}<br>Address: ${o.address||"-"}<br>Driver: ${o.driver||"Not assigned yet"}</p>
+      <p style="font-size:14px"><b>Status Timeline:</b><br>
+      ${o.status==="PENDING"?"⏳ Pending - Waiting for acknowledgement":o.status==="ACKNOWLEDGED"?"✅ Acknowledged - We received your order":o.status==="ON_THE_WAY"?"🚚 On The Way - Driver is coming": "✅ Delivered - Thank you!"}</p>
+      ${o.trackLink?`<div class="track-box">📍 <a href="${o.trackLink}" target="_blank">Track Driver Live on Google Maps →</a></div>`:""}
+      ${o.podPhoto?`<img class="pod" src="${o.podPhoto}"><p>✅ Proof Photo</p>`:""}
+      ${o.signature?`<img class="pod" src="${o.signature}"><p>✍️ Signed Delivery</p>`:""}
       <div class="audit">${o.audit.join("\n")}</div>
-    </div>`).join("") || "<p style='text-align:center;padding:20px'>No orders in this filter.</p>";
-}
-showWho(); render();
+    </div>` : `<div class="card"><b>Order not found</b><p>This link is for a specific phone. Ask coordinator to resend link.</p></div>`;
+} else { showWho(); render(); }
 </script>
 </body>
 </html>
