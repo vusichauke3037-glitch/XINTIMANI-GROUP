@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Xintimani Transport - Coordinator App</title>
+<style>
+  *{box-sizing:border-box;font-family:Arial,sans-serif}
+  body{margin:0;background:#f1f5f9;padding:12px}
+  .header{background:#0a1f4d;color:white;padding:16px;border-radius:12px;text-align:center}
+  .header h1{margin:0;font-size:20px}.header p{margin:4px 0;color:#d4af37;font-weight:bold}
+  .card{background:white;padding:14px;border-radius:12px;margin-top:12px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+  input,select,textarea{width:100%;padding:10px;margin:6px 0;border:1px solid #cbd5e1;border-radius:8px}
+  button{width:100%;padding:12px;border:0;border-radius:8px;font-weight:bold;margin-top:6px;cursor:pointer}
+  .btn-green{background:#059669;color:white}.btn-blue{background:#2563eb;color:white}
+  .btn-orange{background:#ea580c;color:white}.btn-grey{background:#64748b;color:white}
+  .badge{display:inline-block;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:bold;color:white}
+  .PENDING{background:#f59e0b}.ACKNOWLEDGED{background:#2563eb}
+  .ON_THE_WAY{background:#ea580c}.DELIVERED{background:#059669}
+  .meta{font-size:13px;color:#475569}.audit{font-size:12px;background:#f8fafc;padding:8px;border-radius:8px;margin-top:8px;white-space:pre-wrap}
+  .tabs{display:flex;gap:6px;margin-top:12px}.tabs button{flex:1;background:#e2e8f0;color:#0a1f4d}
+  .tabs button.active{background:#0a1f4d;color:white}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>XINTIMANI GROUP</h1>
+  <p>🚚 TRANSPORT COORDINATOR APP</p>
+  <span style="font-size:13px">Building Solutions. Empowering Communities.</span>
+</div>
+
+<!-- LOGIN / ROLE -->
+<div class="card">
+  <b>👤 Who are you?</b>
+  <input id="userName" placeholder="Your Name - e.g. Mr Vusi Chauke">
+  <select id="userRole">
+    <option value="ADMIN">ADMIN - Mr Vusi Chauke</option>
+    <option value="TRANSPORT_COORDINATOR">TRANSPORT COORDINATOR</option>
+    <option value="DRIVER">DRIVER</option>
+  </select>
+  <input id="driverName" placeholder="Driver Name (if DRIVER role) - e.g. Thabo">
+  <button class="btn-blue" onclick="saveUser()">Save My Role ✅</button>
+  <p class="meta" id="whoAmI"></p>
+</div>
+
+<!-- NEW ORDER -->
+<div class="card">
+  <b>➕ New Transport Order</b>
+  <input id="school" placeholder="School / Customer Name">
+  <input id="emis" placeholder="EMIS / Order Ref">
+  <input id="phone" placeholder="School Phone - e.g. 0780233263">
+  <textarea id="items" placeholder="Items - e.g. Grade 10 Textbooks x 50 / Lab Kit x 10"></textarea>
+  <input id="address" placeholder="Delivery Address">
+  <input id="date" type="date">
+  <button class="btn-green" onclick="createOrder()">Create Order 📦</button>
+</div>
+
+<!-- FILTER -->
+<div class="tabs">
+  <button onclick="setFilter('ALL',this)" class="active">All</button>
+  <button onclick="setFilter('PENDING',this)">Pending</button>
+  <button onclick="setFilter('ACKNOWLEDGED',this)">Ack.</button>
+  <button onclick="setFilter('ON_THE_WAY',this)">On Way</button>
+  <button onclick="setFilter('DELIVERED',this)">Done</button>
+</div>
+
+<div id="orders"></div>
+
+<script>
+let orders = JSON.parse(localStorage.getItem("xintimani_transport_orders")||"[]");
+let filter = "ALL";
+let user = JSON.parse(localStorage.getItem("xintimani_transport_user")||"{}");
+
+function saveUser(){
+  user = {name: document.getElementById("userName").value || "Mr Vusi Chauke",
+          role: document.getElementById("userRole").value,
+          driver: document.getElementById("driverName").value};
+  localStorage.setItem("xintimani_transport_user", JSON.stringify(user));
+  showWho(); alert("Role saved: " + user.role);
+}
+function showWho(){
+  if(user.name) document.getElementById("whoAmI").innerText = "Logged in: " + user.name + " (" + user.role + ")" + (user.driver ? " | Driver: "+user.driver : "");
+}
+function canManage(){ return ["ADMIN","TRANSPORT_COORDINATOR"].includes(user.role); }
+function canDrive(){ return ["ADMIN","TRANSPORT_COORDINATOR","DRIVER"].includes(user.role); }
+
+function createOrder(){
+  const o = {
+    id: "ORD-" + Date.now().toString().slice(-6),
+    school: document.getElementById("school").value,
+    emis: document.getElementById("emis").value,
+    phone: document.getElementById("phone").value,
+    items: document.getElementById("items").value,
+    address: document.getElementById("address").value,
+    date: document.getElementById("date").value,
+    status: "PENDING", driver: "", audit: [`${new Date().toLocaleString("en-ZA")} - Order created`]
+  };
+  if(!o.school || !o.items){ alert("Fill School + Items"); return; }
+  orders.unshift(o); save(); render();
+  alert("Order created: " + o.id);
+}
+
+function updateStatus(id, newStatus){
+  const o = orders.find(x=>x.id===id);
+  // Enforce flow
+  const flow = {ACKNOWLEDGED:["PENDING"], ON_THE_WAY:["ACKNOWLEDGED"], DELIVERED:["ON_THE_WAY"]};
+  if(!flow[newStatus].includes(o.status)){ alert("Cannot do that yet. Current: " + o.status); return; }
+  if(newStatus==="ACKNOWLEDGED" && !canManage()){ alert("Only Admin / Transport Coordinator can acknowledge."); return; }
+  if((newStatus==="ON_THE_WAY"||newStatus==="DELIVERED") && !canDrive()){ alert("Only Admin / Coordinator / Driver can do this."); return; }
+
+  let driver = o.driver;
+  if(newStatus==="ON_THE_WAY" && !driver){
+    driver = prompt("Driver Name?", user.driver || "") || user.driver || "Unassigned";
+    o.driver = driver;
+  }
+  if(!confirm(`${newStatus.replaceAll("_"," ")} - Order ${id}?`)) return;
+
+  o.status = newStatus;
+  o.audit.push(`${new Date().toLocaleString("en-ZA")} - ${newStatus} by ${user.name||"Admin"} (${user.role||"ADMIN"})${driver ? " | Driver: "+driver : ""}`);
+  save(); render();
+  sendWhatsApp(o, newStatus);
+}
+
+function sendWhatsApp(o, status){
+  const phone = (o.phone||"").replace(/\D/g,"").replace(/^0/,"27");
+  if(!phone) return;
+  let msg = "";
+  if(status==="ACKNOWLEDGED") msg = `✅ *ORDER ACKNOWLEDGED - XINTIMANI GROUP*%0A%0AOrder: ${o.id}%0ASchool: ${o.school}%0AItems: ${o.items}%0AStatus: ACKNOWLEDGED%0ABy: ${user.name} (${user.role})%0A%0AWe have received your order and are preparing it.`;
+  if(status==="ON_THE_WAY") msg = `🚚 *ORDER ON THE WAY - XINTIMANI GROUP*%0A%0AOrder: ${o.id}%0ASchool: ${o.school}%0ADriver: ${o.driver}%0AStatus: ON THE WAY%0A%0AYour order is on its way to ${o.address}.`;
+  if(status==="DELIVERED") msg = `✅ *ORDER DELIVERED - XINTIMANI GROUP*%0A%0AOrder: ${o.id}%0ASchool: ${o.school}%0ADriver: ${o.driver}%0AStatus: DELIVERED%0A%0AThank you for trusting Xintimani Group.%0AMr Vusi Chauke - 078 023 3263`;
+  window.open(`https://wa.me/${phone}?text=${msg}`, "_blank");
+}
+
+function setFilter(f, el){ filter=f; document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active")); el.classList.add("active"); render(); }
+function save(){ localStorage.setItem("xintimani_transport_orders", JSON.stringify(orders)); }
+
+function render(){
+  const list = orders.filter(o=> filter==="ALL" || o.status===filter);
+  document.getElementById("orders").innerHTML = list.map(o=>`
+    <div class="card">
+      <b>${o.school}</b> <span class="badge ${o.status}">${o.status.replaceAll("_"," ")}</span>
+      <p class="meta">Order: ${o.id} | EMIS: ${o.emis||"-"} | Date: ${o.date||"-"}<br>
+      Items: ${o.items}<br>Address: ${o.address||"-"}<br>
+      Phone: ${o.phone||"-"} | Driver: ${o.driver||"Not assigned"}</p>
+      ${o.status==="PENDING" ? `<button class="btn-blue" onclick="updateStatus('${o.id}','ACKNOWLEDGED')">✅ Acknowledge Order Received</button>` : ""}
+      ${o.status==="ACKNOWLEDGED" ? `<button class="btn-orange" onclick="updateStatus('${o.id}','ON_THE_WAY')">🚚 Mark On The Way + Assign Driver</button>` : ""}
+      ${o.status==="ON_THE_WAY" ? `<button class="btn-green" onclick="updateStatus('${o.id}','DELIVERED')">✅ Mark Delivered</button>` : ""}
+      ${o.status==="DELIVERED" ? `<p style="color:#059669;font-weight:bold">✅ Delivered - Complete</p>` : ""}
+      <div class="audit">${o.audit.join("\n")}</div>
+    </div>`).join("") || "<p style='text-align:center;padding:20px'>No orders in this filter.</p>";
+}
+showWho(); render();
+</script>
+</body>
+</html>
